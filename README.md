@@ -6,7 +6,7 @@ I am choosing this project because I am interested in programming languages and 
 
 ## User Stories
 
-- As a user, I want to be able to select a new Java project to visualize.
+- As a user, I want to be able to select a new Java project to visualize, specifying its path.
 - As a user, I want to be able to choose from a list of previously visualized java projects.
 - As a user, I want to be able to remove a Java project from my list of previously visualized java projects.
 - As a user, I want to be able to generate a package diagram of my project.
