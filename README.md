@@ -8,8 +8,9 @@ I am choosing this project because I am interested in programming languages and 
 
 - As a user, I want to be able to select a new Java project to visualize.
 - As a user, I want to be able to choose from a list of previously visualized java projects.
+- As a user, I want to be able to remove a Java project from my list of previously visualized java projects.
 - As a user, I want to be able to generate a package diagram of my project.
 - As a user, I want to be able to generate a class diagram of my project.
 - As a user, I want to be able to choose a function to generate a flowchart of.
 - As a user, I want to be able to choose a function to generate a call graph of. 
-
+- As a user, I want to be able to regenerate my graphs of a java project to account for changes to the code.
