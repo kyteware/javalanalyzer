@@ -8,6 +8,7 @@ public class ClassPath {
 
     // REQUIRES: path is not null
     // EFFECTS: builds a classpath from a list of identifiers, from major to minor
+    //          will throw error on wildcard import, not supported
     public ClassPath(List<String> packagePath, String className) {
         // stub
     }
