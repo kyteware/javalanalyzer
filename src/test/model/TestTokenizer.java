@@ -39,13 +39,15 @@ public class TestTokenizer {
 
     @Test
     void tokenizerJustStringsTest() {
-        String justStrings = "\"first string\" \"anotherstring\" \"ALLCAPS STRING\" \n\n\n   \"big          space\"  \"sstring with escaped \\\"\"";
+        String justStrings = "\"first string\" \"anotherstring\" \"ALLCAPS STRING\" \n\n\n   \"big          space\""
+        + "  \"sstring with escaped \\\"\" \"string after escape\"";
         List<String> expected = new ArrayList<String>();
         expected.add("\"first string\"");
         expected.add("\"anotherstring\"");
         expected.add("\"ALLCAPS STRING\"");
         expected.add("\"big          space\"");
-        expected.add("\"sstring with escaped \"");
+        expected.add("\"sstring with escaped \\\"\"");
+        expected.add("\"string after escape\"");
         assertEquals(expected, Tokenizer.tokenize(justStrings));
     }
 
