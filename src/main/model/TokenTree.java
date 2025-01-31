@@ -6,10 +6,14 @@ import java.util.List;
 public class TokenTree {
     // fields
 
-    // REQUIRES: the tokens represent valid java code
-    // EFFECTS: generates a tree from a flat list of tokens
-    public TokenTree(List<String> tokens) {
+    // EFFECTS: creates a token tree from some content and children
+    public TokenTree(List<String> content, List<TokenTree> children) {
         // stub
+    }
+
+    public static List<TokenTree> genTrees(List<String> tokens) {
+        // stub
+        return null;
     }
 
     // EFFECTS: returns class path if tree is import statement, else null
