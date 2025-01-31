@@ -2,17 +2,18 @@ package model;
 
 import java.util.List;
 
-// a java classpath
+// a java classpath, can represent package paths if the class name is null
 public class ClassPath {
     // fields
 
+    // REQUIRES: path is not null
     // EFFECTS: builds a classpath from a list of identifiers, from major to minor
-    public ClassPath(List<String> fullPath) {
+    public ClassPath(List<String> packagePath, String className) {
         // stub
     }
 
     // EFFECTS: gets the path of the module (excluding the path name)
-    public List<String> getMod() {
+    public List<String> getPackagePath() {
         // stub
         return null;
     }
