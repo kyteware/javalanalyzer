@@ -2,7 +2,7 @@ package model;
 
 import java.util.List;
 
-// a tree of java language tokens
+// a tree of java language tokens, can either be a branch with some children or a leaf with some tokens
 public class TokenTree {
     // fields
 
@@ -11,26 +11,61 @@ public class TokenTree {
         // stub
     }
 
-    public static List<TokenTree> genTrees(List<String> tokens) {
-        // stub
+    // EFFECT: true if the tree is a leaf node with some flat language tokens
+    public boolean isLeaf() {
+        return false;
+    }
+
+    // EFFECT: true if the tree is a branch node with some children
+    public boolean isBranch() {
+        return false;
+    }
+
+    // EFFECT: returns all the java language tokens inside the node
+    // REQUIRES: must be a leaf node
+    public List<String> getTokens() {
         return null;
     }
 
-    // EFFECTS: returns class path if tree is import statement, else null
-    public ClassPath tryAsImportStatement() {
-        // stub
+    // EFFECT: returns all the children of the tree
+    // REQUIRES: must be a branch node
+    public List<TokenTree> getTrees() {
         return null;
     }
 
-    // EFFECTS: get the content that builds the tree (if statement, semicolon excluded)
-    public List<String> getContent() {
-        // stub
-        return null;
+    // EFFECT: true if the tree is surrounded by curly braces
+    // REQUIRES: must be a branch node
+    public boolean isCurly() {
+        return false;
     }
 
-    // EFFECTS: get the child trees of the tree
-    public List<TokenTree> getChildren() {
-        // stub
-        return null;
+    // EFFECT: true if the tree is surrounded by square braces
+    // REQUIRES: must be a branch node
+    public boolean isSquare() {
+        return false;
+    }
+
+    // EFFECT: true if the tree is surrounded by round paranthesis
+    // REQUIRES: must be a branch node
+    public boolean isRound() {
+        return false;
+    }
+
+    // EFFECT: true if the tree isn't surround by anything because it is the tree of a java file
+    // REQUIRES: must be a branch node
+    public boolean isRoot() {
+        return false;
+    }
+
+    // EFFECT: 
+    // REQUIRES: must be a branch node
+    public boolean isCommaSeperated() {
+        return false;
+    }
+
+    // EFFECT:
+    // REQUIRES: must be a branch node
+    public boolean isSemicolonSeperated() {
+        return false;
     }
 }
