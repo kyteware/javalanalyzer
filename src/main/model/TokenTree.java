@@ -4,11 +4,33 @@ import java.util.List;
 
 // a tree of java language tokens, can either be a branch with some children or a leaf with some tokens
 public class TokenTree {
+    public static int DELIMITED_CURLY = 0;
+    public static int DELIMITED_SQUARY = 1;
+    public static int DELIMITED_ROUND = 2;
+    public static int DELIMITED_ROOT = 3;
+    public static int SEPERATED_NA = 0;
+    public static int SEPERATED_SEMICOLON = 1;
+    public static int SEPERATED_COMMA = 2;
+    
     // fields
 
-    // EFFECTS: creates a token tree from some content and children
-    public TokenTree(List<String> content, List<TokenTree> children) {
+    // EFFECTS: creates a leaf token tree
+    public TokenTree(List<String> tokens) {
         // stub
+    }
+
+    // EFFECTS: create a branch token tree
+    public TokenTree(List<TokenTree> children, int delimiters, int seperators) {
+        // stub
+    }
+
+    // EFFECTS: parse a collection of java tokens into a token tree
+    public static TokenTree parseFlatTokens(List<String> tokens) {
+        return null;
+    }
+
+    private static TokenTree parseFlatTokensRecursive(List<String> tokens, int next) {
+        return null;
     }
 
     // EFFECT: true if the tree is a leaf node with some flat language tokens
@@ -33,39 +55,15 @@ public class TokenTree {
         return null;
     }
 
-    // EFFECT: true if the tree is surrounded by curly braces
+    // EFFECT: gets the kind of delimitors that are wrapped around the branch node
     // REQUIRES: must be a branch node
-    public boolean isCurly() {
+    public boolean getDelimitors() {
         return false;
     }
 
-    // EFFECT: true if the tree is surrounded by square braces
+    // EFFECT: gets the kind of seperators between the children of the 
     // REQUIRES: must be a branch node
-    public boolean isSquare() {
-        return false;
-    }
-
-    // EFFECT: true if the tree is surrounded by round paranthesis
-    // REQUIRES: must be a branch node
-    public boolean isRound() {
-        return false;
-    }
-
-    // EFFECT: true if the tree isn't surround by anything because it is the tree of a java file
-    // REQUIRES: must be a branch node
-    public boolean isRoot() {
-        return false;
-    }
-
-    // EFFECT: 
-    // REQUIRES: must be a branch node
-    public boolean isCommaSeperated() {
-        return false;
-    }
-
-    // EFFECT:
-    // REQUIRES: must be a branch node
-    public boolean isSemicolonSeperated() {
+    public boolean getSeperators() {
         return false;
     }
 }
