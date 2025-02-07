@@ -55,7 +55,7 @@ public class TestTokenTree {
     }
     
     @Test
-    public void testParseLeaves() {
+    public void parseLeavesTest() {
         assertTrue(leafSingle.isLeaf());
         assertEquals("return", leafSingle.getTokens().get(0));
 
@@ -65,7 +65,7 @@ public class TestTokenTree {
     }
 
     @Test
-    public void testParseBranches() {
+    public void parseBranchesTest() {
         assertTrue(branchSemiSeperated.isBranch());
         assertEquals(TokenTree.SEPERATED_SEMICOLON, branchSemiSeperated.getSeperators());
         TokenTree statement1 = branchSemiSeperated.getTrees().get(0);
@@ -81,7 +81,7 @@ public class TestTokenTree {
     }
 
     @Test
-    public void testParseEmpties() {
+    public void parseEmptiesTest() {
         assertTrue(branchEmptyBraces.isBranch());
         assertEquals(TokenTree.DELIMITED_SQUARY, branchEmptyBraces.getDelimiters());
         assertEquals(TokenTree.SEPERATED_NA, branchEmptyBraces.getSeperators());
@@ -97,7 +97,7 @@ public class TestTokenTree {
         assertEquals(0, inside.getTrees().size());
     }
 
-    public void testParseArrayDecl() {
+    public void parseArrayDeclTest() {
         assertTrue(arrayDecl.isBranch());
         assertEquals(TokenTree.SEPERATED_NA, arrayDecl.getSeperators());
         TokenTree declType = arrayDecl.getTrees().get(0);
@@ -126,7 +126,7 @@ public class TestTokenTree {
         assertEquals(Arrays.asList(two), array.getTrees().get(0).getTokens());
     }
 
-    public void testParseJavaFile() {
+    public void parseJavaFileTest() {
         assertTrue(javaFile.isBranch());
         assertEquals(TokenTree.DELIMITED_ROOT, javaFile.getDelimiters());
         assertEquals(TokenTree.SEPERATED_SEMICOLON, javaFile.getSeperators());
