@@ -41,6 +41,7 @@ public class TokenTree {
         return parseFlatTokensRecursive(tokens, 0, tokens.size() - 1, DELIMITED_ROOT);
     }
 
+    // EFFECTS: parse the tokens of a java file into a token tree
     public static TokenTree parseJavaFileTokens(List<String> tokens) {
         TokenTree tree = parseFlatTokens(tokens);
         tree.delimiters = DELIMITED_ROOT;
