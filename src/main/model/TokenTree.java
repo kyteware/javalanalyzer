@@ -29,7 +29,11 @@ public class TokenTree {
         return null;
     }
 
-    private static TokenTree parseFlatTokensRecursive(List<String> tokens, int next) {
+    public static TokenTree parseJavaFileTokens(List<String> tokens) {
+        return null;
+    }
+
+    private static TokenTree parseFlatTokensRecursive(List<String> tokens, int next, int last, int delimiters) {
         return null;
     }
 
@@ -57,13 +61,13 @@ public class TokenTree {
 
     // EFFECT: gets the kind of delimitors that are wrapped around the branch node
     // REQUIRES: must be a branch node
-    public boolean getDelimitors() {
-        return false;
+    public int getDelimiters() {
+        return DELIMITED_ROOT;
     }
 
     // EFFECT: gets the kind of seperators between the children of the 
     // REQUIRES: must be a branch node
-    public boolean getSeperators() {
-        return false;
+    public int getSeperators() {
+        return SEPERATED_NA;
     }
 }
