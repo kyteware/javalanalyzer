@@ -6,11 +6,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Tokenizer {
-    private static String stringMatch = "\"(\\\\\"|.)*?\""; // doesn't work with delimited double quotes
+    private static String stringMatch = "\"(\\\\\"|.)*?\"";
+    private static String charMatch = "'.'";
     private static String wordMatch = "([A-Z]|[a-z]|_)([A-Z]|[a-z]|[0-9]|_)*";
     private static String numberMatch = "[0-9]+\\.?[0-9]*";
     private static String symbolMatch = "\\!|\\@|\\%|\\^|\\&|\\*|\\(|\\)|\\||\\-|\\+|\\[|\\]|\\{|\\}|\\;\\|\\:|\\,|\\.|\\<|\\>|\\/";
-    private static String[] allMatches = { stringMatch, wordMatch, numberMatch, symbolMatch };
+    private static String[] allMatches = { stringMatch, charMatch, wordMatch, numberMatch, symbolMatch };
     private static String tokenMatch = String.join("|", allMatches);
     private static Pattern pattern = Pattern.compile(tokenMatch);
 

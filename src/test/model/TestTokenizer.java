@@ -51,6 +51,19 @@ public class TestTokenizer {
     }
 
     @Test
+    void tokenizerJustCharsTest() {
+        String justChars = "'a'   'd' 'z' 'j' \n\n\n'['";
+
+        List<String> expected = new ArrayList<String>();
+        expected.add("'a'");
+        expected.add("'d'");
+        expected.add("'z'");
+        expected.add("'j'");
+        expected.add("'['");
+        assertEquals(expected, Tokenizer.tokenize(justChars));
+    }
+
+    @Test
     void tokenizerJustNumbersTest() {
         String justNumbers = "2134 2.34 2134. 12345678900987654321";
         List<String> expected = new ArrayList<String>();
@@ -63,13 +76,14 @@ public class TestTokenizer {
 
     @Test
     void tokenizerAllKindsTest() {
-        String allKinds = "class 1234.3443 \n\n\"a string\" {}";
+        String allKinds = "class 1234.3443 \n\n\"a string\" {} '2'";
         List<String> expected = new ArrayList<String>();
         expected.add("class");
         expected.add("1234.3443");
         expected.add("\"a string\"");
         expected.add("{");
         expected.add("}");
+        expected.add("'2'");
         assertEquals(expected, Tokenizer.tokenize(allKinds));
     }
 }
