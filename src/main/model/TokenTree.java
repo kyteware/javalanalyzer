@@ -79,10 +79,4 @@ public class TokenTree {
     public int getDelimiters() {
         return delimiters;
     }
-
-    // EFFECT: gets the kind of seperators between the children of the 
-    // REQUIRES: must be a branch node
-    public int getSeperators() {
-        return seperators;
-    }
 }
