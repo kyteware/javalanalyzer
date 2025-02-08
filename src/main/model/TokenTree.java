@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // a tree of java language tokens, can either be a branch with some children or a leaf with some tokens
@@ -8,31 +9,25 @@ public class TokenTree {
     public static int DELIMITED_SQUARY = 1;
     public static int DELIMITED_ROUND = 2;
     public static int DELIMITED_ROOT = 3;
-    public static int SEPERATED_NA = 0;
-    public static int SEPERATED_SEMICOLON = 1;
-    public static int SEPERATED_COMMA = 2;
     
     private boolean isLeaf;
-    private List<String> tokens;
+    private String token;
     private List<TokenTree> trees;
     private int delimiters;
-    private int seperators;
 
     // EFFECTS: creates a leaf token tree
-    public TokenTree(List<String> tokens) {
+    public TokenTree(String token) {
         this.isLeaf = true;
-        this.tokens = tokens;
+        this.token = token;
         this.trees = null;
         this.delimiters = -1;
-        this.seperators = -1;
     }
 
     // EFFECTS: create a branch token tree
     public TokenTree(List<TokenTree> children, int delimiters, int seperators) {
         this.isLeaf = false;
-        this.tokens = null;
+        this.token = null;
         this.trees = children;
-        this.seperators = seperators;
         this.delimiters = delimiters;
     }
 
@@ -52,7 +47,7 @@ public class TokenTree {
         return null;
     }
 
-    // EFFECT: true if the tree is a leaf node with some flat language tokens
+    // EFFECT: true if the tree is a leaf node with a single language token
     public boolean isLeaf() {
         return isLeaf;
     }
@@ -62,20 +57,20 @@ public class TokenTree {
         return !isLeaf;
     }
 
-    // EFFECT: returns all the java language tokens inside the node
     // REQUIRES: must be a leaf node
-    public List<String> getTokens() {
-        return tokens;
+    // EFFECT: returns the token of the leaf node
+    public String getToken() {
+        return token;
     }
 
-    // EFFECT: returns all the children of the tree
     // REQUIRES: must be a branch node
+    // EFFECT: returns all the children of the tree
     public List<TokenTree> getTrees() {
         return trees;
     }
 
-    // EFFECT: gets the kind of delimiters that are wrapped around the branch node
     // REQUIRES: must be a branch node
+    // EFFECT: gets the kind of delimiters that are wrapped around the branch node
     public int getDelimiters() {
         return delimiters;
     }
