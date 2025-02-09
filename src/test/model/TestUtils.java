@@ -18,11 +18,11 @@ public class TestUtils {
 
     @Test
     public void isWordNoTest() {
-        assertTrue(Utils.isWord("3fred"));
-        assertTrue(Utils.isWord(""));
-        assertTrue(Utils.isWord("{}"));
-        assertTrue(Utils.isWord("432"));
-        assertTrue(Utils.isWord("sadfasdf.sadf"));
-        assertTrue(Utils.isWord(" "));
+        assertFalse(Utils.isWord("3fred"));
+        assertFalse(Utils.isWord(""));
+        assertFalse(Utils.isWord("{}"));
+        assertFalse(Utils.isWord("432"));
+        assertFalse(Utils.isWord("sadfasdf.sadf"));
+        assertFalse(Utils.isWord(" "));
     }
 }
