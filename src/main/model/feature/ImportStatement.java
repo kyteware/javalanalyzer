@@ -14,7 +14,7 @@ public class ImportStatement {
     
     // MODIFIES: trees
     // EFFECTS: attempt to build the feature from a slice of token trees, return null on failure
-    public ImportStatement tryBuilding(List<TokenTree> trees) {
+    public static ImportStatement tryBuilding(List<TokenTree> trees) {
         return null;
     }
 
