@@ -2,141 +2,85 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 public class TestTokenTree {
-    TokenTree leafSingle;
-    TokenTree leafMultiple;
-    TokenTree branchSemiSeperated;
-    TokenTree branchCommaSeperated;
-    TokenTree branchEmptyBraces;
-    TokenTree branchEmptyBracesDeep;
+    TokenTree oneToken = new TokenTree(":");
+    TokenTree manyTokens;
+    TokenTree emptyBraces;
+    TokenTree emptyBracesDeep;
+    TokenTree branchMany;
     TokenTree arrayDecl;
     TokenTree fnDecl;
     TokenTree classDecl;
     TokenTree javaFile;
-
+    
     @BeforeEach
     public void beforeEach() {
-        leafSingle = TokenTree.parseFlatTokens(Tokenizer.tokenize(
-            "return"
+        oneToken = TokenTree.parseJavaTokens(Tokenizer.tokenize(
+            "package"
         ));
-        leafMultiple = TokenTree.parseFlatTokens(Tokenizer.tokenize(
-            "return \"bob\""
-        ));
-        branchSemiSeperated = TokenTree.parseFlatTokens(Tokenizer.tokenize(
-            "int bob; bob=1; return \"bob\";"
-        ));
-        branchCommaSeperated = TokenTree.parseFlatTokens(Tokenizer.tokenize(
+        manyTokens = TokenTree.parseJavaTokens(Tokenizer.tokenize(
             "1, 2, \"hi\", bob"
         ));
-        branchEmptyBraces = TokenTree.parseFlatTokens(Tokenizer.tokenize(
+        emptyBraces = TokenTree.parseJavaTokens(Tokenizer.tokenize(
             "[]"
         ));
-        branchEmptyBracesDeep = TokenTree.parseFlatTokens(Tokenizer.tokenize(
+        emptyBracesDeep = TokenTree.parseJavaTokens(Tokenizer.tokenize(
             "({})"
         ));
-        arrayDecl = TokenTree.parseFlatTokens(Tokenizer.tokenize(
-            "int[] = {1, 2, 3}"
-        ));
-        javaFile = TokenTree.parseJavaFileTokens(Tokenizer.tokenize(
-            "import java.util.ArrayList;"
-            + "public class Main {"
-            + " public static void main(String[] args) {"
-            + "  System.out.println(\"hiii\");"
-            + " }"
-            + "}"
+        branchMany = TokenTree.parseJavaTokens(Tokenizer.tokenize(
+            "{ 1, 2, 3 } [()]"
         ));
     }
     
     @Test
-    public void parseLeavesTest() {
-        assertTrue(leafSingle.isLeaf());
-        assertEquals("return", leafSingle.getTokens().get(0));
+    public void parseFlatTest() {
+        assertTrue(oneToken.isBranch());
+        assertTrue(!oneToken.isLeaf());
+        assertTrue(oneToken.getTrees().get(0).isLeaf());
+        assertTrue(!oneToken.getTrees().get(0).isBranch());
+        assertEquals("package", oneToken.getTrees().get(0).getToken());
 
-        assertTrue(leafMultiple.isLeaf());
-        assertEquals("return", leafSingle.getTokens().get(0));
-        assertEquals("bob", leafSingle.getTokens().get(1));
-    }
-
-    @Test
-    public void parseBranchesTest() {
-        assertTrue(branchSemiSeperated.isBranch());
-        assertEquals(TokenTree.SEPERATED_SEMICOLON, branchSemiSeperated.getSeperators());
-        TokenTree statement1 = branchSemiSeperated.getTrees().get(0);
-        assertTrue(statement1.isLeaf());
-        assertEquals("int", statement1.getTokens().get(0));
-        assertEquals("bob", statement1.getTokens().get(1));
-        assertEquals(2, statement1.getTokens().size());
-        assertTrue(branchSemiSeperated.getTrees().get(1).isLeaf());
-        assertTrue(branchSemiSeperated.getTrees().get(2).isLeaf());
-
-        assertTrue(branchCommaSeperated.isBranch());
-        assertEquals(TokenTree.SEPERATED_COMMA, branchCommaSeperated.getSeperators());
+        assertTrue(manyTokens.getTrees().get(3).isLeaf());
+        assertEquals(",", manyTokens.getTrees().get(3).getToken());
     }
 
     @Test
     public void parseEmptiesTest() {
-        assertTrue(branchEmptyBraces.isBranch());
-        assertEquals(TokenTree.DELIMITED_SQUARY, branchEmptyBraces.getDelimiters());
-        assertEquals(TokenTree.SEPERATED_NA, branchEmptyBraces.getSeperators());
-        assertEquals(0, branchEmptyBraces.getTrees().size());
-
-        assertTrue(branchEmptyBracesDeep.isBranch());
-        assertEquals(TokenTree.DELIMITED_ROUND, branchEmptyBracesDeep.getDelimiters());
-        assertEquals(TokenTree.SEPERATED_NA, branchEmptyBracesDeep.getSeperators());
-        assertEquals(1, branchEmptyBracesDeep.getTrees().size());
-        TokenTree inside = branchEmptyBracesDeep.getTrees().get(0);
-        assertEquals(TokenTree.DELIMITED_CURLY, inside.getDelimiters());
-        assertEquals(TokenTree.SEPERATED_NA, inside.getSeperators());
-        assertEquals(0, inside.getTrees().size());
+        emptyBraces = TokenTree.parseJavaTokens(Tokenizer.tokenize(
+            "[]"
+        ));
+        assertEquals(1, emptyBraces.getTrees().size());
+        assertEquals(0, emptyBraces.getTrees().get(0).getTrees().size());
+        assertEquals(TokenTree.DELIMITED_SQUARY, emptyBraces.getTrees().get(0).getDelimiters());
+        
+        TokenTree outer = emptyBracesDeep.getTrees().get(0);
+        assertEquals(TokenTree.DELIMITED_ROUND, outer.getDelimiters());
+        assertEquals(1, outer.getTrees().size());
+        TokenTree inner = outer.getTrees().get(0);
+        assertEquals(TokenTree.DELIMITED_CURLY, inner.getDelimiters());
+        assertEquals(0, inner.getTrees().size());
     }
 
-    public void parseArrayDeclTest() {
-        assertTrue(arrayDecl.isBranch());
-        assertEquals(TokenTree.SEPERATED_NA, arrayDecl.getSeperators());
-        TokenTree declType = arrayDecl.getTrees().get(0);
-        TokenTree arrayDesg = arrayDecl.getTrees().get(1);
-        TokenTree eq = arrayDecl.getTrees().get(2);
-        TokenTree array = arrayDecl.getTrees().get(3);
-
-        assertTrue(declType.isLeaf());
-        String[] declTypeTokens = { "int" };
-        assertEquals(Arrays.asList(declTypeTokens), declType.getTokens());
-
-        assertTrue(arrayDesg.isBranch());
-        assertEquals(TokenTree.DELIMITED_SQUARY, arrayDesg.getDelimiters());
-        assertEquals(TokenTree.SEPERATED_NA, arrayDesg.getSeperators());
-        assertEquals(0, arrayDesg.getTokens().size());
-
-        assertTrue(eq.isLeaf());
-        String[] eqTokens = { "=" };
-        assertEquals(Arrays.asList(eqTokens), eq.getTokens());
-
-        assertTrue(array.isBranch());
-        assertEquals(TokenTree.SEPERATED_COMMA, array.getSeperators());
+    @Test
+    public void parseBranchManyTest() {
+        TokenTree array = branchMany.getTrees().get(0);
         assertEquals(TokenTree.DELIMITED_CURLY, array.getDelimiters());
-        assertEquals(3, array.getTrees().size());
-        String[] two = { "2" };
-        assertEquals(Arrays.asList(two), array.getTrees().get(0).getTokens());
-    }
+        assertTrue(array.isBranch());
+        TokenTree expected = TokenTree.parseJavaTokens(Tokenizer.tokenize("1, 2, 3"));
+        for (int i=0; i<expected.getTrees().size(); i++) {
+            String wanted = expected.getTrees().get(i).getToken();
+            String actual = array.getTrees().get(i).getToken();
+            assertEquals(wanted, actual);
+        }
 
-    public void parseJavaFileTest() {
-        assertTrue(javaFile.isBranch());
-        assertEquals(TokenTree.DELIMITED_ROOT, javaFile.getDelimiters());
-        assertEquals(TokenTree.SEPERATED_SEMICOLON, javaFile.getSeperators());
-        TokenTree importStatement = javaFile.getTrees().get(0);
-        TokenTree classDecl = javaFile.getTrees().get(1);
-
-        assertTrue(importStatement.isLeaf());
-        assertEquals(6, importStatement.getTokens().size());
-
-        assertTrue(classDecl.isBranch());
-        assertEquals(4, classDecl.getTrees().size());
+        TokenTree extras = branchMany.getTrees().get(1);
+        assertTrue(extras.isBranch());
+        assertEquals(TokenTree.DELIMITED_SQUARY, extras.getDelimiters());
     }
 }
