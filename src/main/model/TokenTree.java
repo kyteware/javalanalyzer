@@ -20,31 +20,56 @@ public class TokenTree {
         this.isLeaf = true;
         this.token = token;
         this.trees = null;
-        this.delimiters = -1;
+        this.delimiters = DELIMITED_ROOT;
     }
 
     // EFFECTS: create a branch token tree
-    public TokenTree(List<TokenTree> children, int delimiters, int seperators) {
+    public TokenTree(List<TokenTree> children) {
         this.isLeaf = false;
         this.token = null;
         this.trees = children;
-        this.delimiters = delimiters;
+        this.delimiters = DELIMITED_ROOT;
     }
 
-    // EFFECTS: parse a collection of java tokens into a token tree
-    public static TokenTree parseFlatTokens(List<String> tokens) {
-        return parseFlatTokensRecursive(tokens, 0, tokens.size() - 1, DELIMITED_ROOT);
-    }
+    // REQUIRES: open/close parens and brackets line up properly
+    // EFFECTS: parse a collection of flat java tokens into a token tree
+    public static TokenTree parseJavaTokens(List<String> tokens) {
+        List<TokenTree> ttsSoFar = new ArrayList<>();
+        List<String> stack = new ArrayList<>();
+        int branchStart = -1;
 
-    // EFFECTS: parse the tokens of a java file into a token tree
-    public static TokenTree parseJavaFileTokens(List<String> tokens) {
-        TokenTree tree = parseFlatTokens(tokens);
-        tree.delimiters = DELIMITED_ROOT;
+        for (int i=0; i<tokens.size(); i++) {
+            String token = tokens.get(i);
+            if (token.equals("{")
+                    | token.equals("[") 
+                    | token.equals("(")) {
+                if (stack.size() == 0) {
+                    branchStart = i + 1;
+                }
+                stack.add(token);
+            } else if (token.equals("}")
+                    | token.equals("]")
+                    | token.equals(")")) { 
+                if (stack.size() == 1) {
+                    int branchEnd = i;
+                    TokenTree inner = parseJavaTokens(tokens.subList(branchStart, branchEnd));
+                    if (token.equals("}")) {
+                        inner.delimiters = DELIMITED_CURLY;
+                    } else if (token.equals("]")) {
+                        inner.delimiters = DELIMITED_SQUARY;
+                    } else {
+                        inner.delimiters = DELIMITED_ROUND;
+                    }
+                    ttsSoFar.add(inner);
+                }
+                stack.remove(stack.size() - 1);
+            } else if (stack.size() == 0) {
+                ttsSoFar.add(new TokenTree(token));
+            }
+        }
+
+        TokenTree tree = new TokenTree(ttsSoFar);
         return tree;
-    }
-
-    private static TokenTree parseFlatTokensRecursive(List<String> tokens, int next, int last, int delimiters) {
-        return null;
     }
 
     // EFFECT: true if the tree is a leaf node with a single language token
