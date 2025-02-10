@@ -11,12 +11,19 @@ public class Utils {
     }
 
     // EFFECTS: attempt to take a token (leaf) from a list of tokentrees
-    public static String takeToken(List<TokenTree> tts, Integer current) {
-        return null; //stub
+    public static String takeToken(List<TokenTree> tts) throws UnexpectedToken, NoMoreTokens {
+        if (tts.size() == 0) {
+            throw new NoMoreTokens();
+        } else if (tts.get(0).isBranch()) {
+            throw new UnexpectedToken();
+        } else {
+            TokenTree taken = tts.remove(0);
+            return taken.getToken();
+        }
     }
 
     // EFFECTS: attempt to take a subtree (branch) from a list of tokentrees
-    public static TokenTree takeTree(List<TokenTree> tts, Integer current) {
+    public static TokenTree takeTree(List<TokenTree> tts) throws UnexpectedToken, NoMoreTokens  {
         return null; //stub
     }
 }
