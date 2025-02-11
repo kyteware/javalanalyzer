@@ -108,7 +108,7 @@ public class TestPackageStatement {
     @Test
     public void tryBuildingExtraTest() throws UnexpectedToken, NoMoreTokens {
         TokenTree singleTree = TokenTree.parseJavaTokens(Tokenizer.tokenize(
-            "package myPackage.MyClass;;;;;"
+            "package myPackage;;;;;"
         ));
         List<TokenTree> singleSlice = singleTree.getTrees();
         PackageStatement singleBuilt = PackageStatement.tryBuilding(singleSlice);
@@ -116,7 +116,7 @@ public class TestPackageStatement {
         assertEquals(4, singleSlice.size());
 
         TokenTree multiTree = TokenTree.parseJavaTokens(Tokenizer.tokenize(
-            "package d1.d2.DeepClass; class Bob"
+            "package d1.d2; class Bob"
         ));
         List<TokenTree> multiSlice = multiTree.getTrees();
         PackageStatement multiBuilt = PackageStatement.tryBuilding(multiSlice);
