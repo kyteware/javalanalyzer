@@ -11,10 +11,7 @@ public class TestTokenTree {
     TokenTree emptyBraces;
     TokenTree emptyBracesDeep;
     TokenTree branchMany;
-    TokenTree arrayDecl;
-    TokenTree fnDecl;
-    TokenTree classDecl;
-    TokenTree javaFile;
+    TokenTree variety;
     
     @BeforeEach
     public void beforeEach() {
@@ -32,6 +29,9 @@ public class TestTokenTree {
         ));
         branchMany = TokenTree.parseJavaTokens(Tokenizer.tokenize(
             "{ 1, 2, 3 } [()]"
+        ));
+        variety = TokenTree.parseJavaTokens(Tokenizer.tokenize(
+            "package ; {} "
         ));
     }
     
@@ -79,5 +79,10 @@ public class TestTokenTree {
         TokenTree extras = branchMany.getTrees().get(1);
         assertTrue(extras.isBranch());
         assertEquals(TokenTree.DELIMITED_SQUARY, extras.getDelimiters());
+    }
+
+    @Test
+    public void varietyTest() {
+        assertEquals(3, variety.getTrees().size());
     }
 }
