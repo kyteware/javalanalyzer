@@ -9,8 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import model.ClassPath;
+import model.NoMoreTokens;
 import model.TokenTree;
 import model.Tokenizer;
+import model.UnexpectedToken;
 
 
 public class TestImportStatement {
@@ -39,7 +41,7 @@ public class TestImportStatement {
     }
 
     @Test
-    public void tryBuildingNormalTest() {
+    public void tryBuildingNormalTest() throws NoMoreTokens, UnexpectedToken {
         TokenTree singleTree = TokenTree.parseJavaTokens(Tokenizer.tokenize(
             "import myPackage.MyClass;"
         ));
@@ -57,33 +59,51 @@ public class TestImportStatement {
 
     @Test
     public void tryBuildingWrongTest() {
-        assertNull(ImportStatement.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
-            "import x.y.z"
-        )).getTrees()));
+        assertThrows(
+            NoMoreTokens.class, 
+            () -> {ImportStatement.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
+        "import x.y.z"
+            )).getTrees());}
+        );
 
-        assertNull(ImportStatement.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
-            "import A"
-        )).getTrees()));
+        assertThrows(
+            NoMoreTokens.class, 
+            () -> {ImportStatement.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
+        "import A"
+            )).getTrees());}
+        );
 
-        assertNull(ImportStatement.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
-            "package x.y.z;"
-        )).getTrees()));
+        assertThrows(
+            UnexpectedToken.class, 
+            () -> {ImportStatement.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
+        "package x.y.z;"
+            )).getTrees());}
+        );
 
-        assertNull(ImportStatement.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
-            "import x,y,z;"
-        )).getTrees()));
+        assertThrows(
+            UnexpectedToken.class, 
+            () -> {ImportStatement.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
+        "import x,y,z;"
+            )).getTrees());}
+        );
 
-        assertNull(ImportStatement.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
-            "import {} x.y.z;"
-        )).getTrees()));
+        assertThrows(
+            UnexpectedToken.class, 
+            () -> {ImportStatement.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
+        "import {} x.y.z;"
+            )).getTrees());}
+        );
 
-        assertNull(ImportStatement.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
-            "import bleh x.y.z;"
-        )).getTrees()));
+        assertThrows(
+            UnexpectedToken.class, 
+            () -> {ImportStatement.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
+        "import bleh x.y.z;"
+            )).getTrees());}
+        );
     }
 
     @Test
-    public void tryBuildingExtraTest() {
+    public void tryBuildingExtraTest() throws UnexpectedToken, NoMoreTokens {
         TokenTree singleTree = TokenTree.parseJavaTokens(Tokenizer.tokenize(
             "import myPackage.MyClass;;;;;"
         ));
