@@ -11,19 +11,49 @@ import model.Utils;
 
 // representation of a java package statement
 public class PackageStatement {
+    private ClassPath path;
 
     // EFFECTS: build an package statement from a classpath
     public PackageStatement(ClassPath path) {
-        //stub
+        this.path = path;
     }
     
     // MODIFIES: trees
     // EFFECTS: attempt to build the feature from a slice of token trees
     public static PackageStatement tryBuilding(List<TokenTree> trees) throws NoMoreTokens, UnexpectedToken {
-        return null; //stub
+        List<TokenTree> eaten = new ArrayList<>(trees);
+        if (!Utils.takeToken(eaten).equals("package")) {
+            throw new UnexpectedToken();
+        }
+
+        List<String> levels = new ArrayList<>();
+
+        while (true) {
+            String name = Utils.takeToken(eaten);
+            if (!Utils.isWord(name)) {
+                throw new UnexpectedToken();
+            }
+            String div = Utils.takeToken(eaten);
+            
+            levels.add(name);
+            if (div.equals(";")) {
+                break;
+            }
+            if (!div.equals(".")) {
+                throw new UnexpectedToken();
+            }
+        }
+
+        if (levels.size() == 0) {
+            throw new UnexpectedToken();
+        }
+
+        trees.clear();
+        trees.addAll(eaten);
+        return new PackageStatement(new ClassPath(levels, null));
     }
 
     public ClassPath getPath() {
-        return null; //sutb
+        return path;
     }
 }
