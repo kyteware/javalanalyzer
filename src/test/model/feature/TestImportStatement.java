@@ -25,7 +25,7 @@ public class TestImportStatement {
     public void beforeEach() {
         ArrayList<String> path = new ArrayList<>();
         path.add("myPackage");
-        oneLevelClassPath = new ClassPath(new ArrayList<>(), "MyClass");
+        oneLevelClassPath = new ClassPath(path, "MyClass");
         oneLevel = new ImportStatement(oneLevelClassPath);
         ArrayList<String> multiPath = new ArrayList<>();
         multiPath.add("d1");
@@ -46,14 +46,18 @@ public class TestImportStatement {
             "import myPackage.MyClass;"
         ));
         List<TokenTree> singleSlice = singleTree.getTrees();
-        assertEquals(oneLevel, ImportStatement.tryBuilding(singleSlice));
+        ImportStatement singleBuilt = ImportStatement.tryBuilding(singleSlice);
+        assertEquals(oneLevel.getClassPath().getClassName(), singleBuilt.getClassPath().getClassName());
+        assertEquals(oneLevel.getClassPath().getPackagePath(), singleBuilt.getClassPath().getPackagePath());
         assertEquals(0, singleSlice.size());
 
         TokenTree multiTree = TokenTree.parseJavaTokens(Tokenizer.tokenize(
             "import d1.d2.DeepClass;"
         ));
         List<TokenTree> multiSlice = multiTree.getTrees();
-        assertEquals(multiLevel, ImportStatement.tryBuilding(multiSlice));
+        ImportStatement multiBuilt = ImportStatement.tryBuilding(multiSlice);
+        assertEquals(multiLevel.getClassPath().getClassName(), multiBuilt.getClassPath().getClassName());
+        assertEquals(multiLevel.getClassPath().getPackagePath(), multiBuilt.getClassPath().getPackagePath());
         assertEquals(0, multiSlice.size());
     }
 
@@ -108,14 +112,18 @@ public class TestImportStatement {
             "import myPackage.MyClass;;;;;"
         ));
         List<TokenTree> singleSlice = singleTree.getTrees();
-        assertEquals(oneLevel, ImportStatement.tryBuilding(singleSlice));
+        ImportStatement singleBuilt = ImportStatement.tryBuilding(singleSlice);
+        assertEquals(oneLevel.getClassPath().getClassName(), singleBuilt.getClassPath().getClassName());
+        assertEquals(oneLevel.getClassPath().getPackagePath(), singleBuilt.getClassPath().getPackagePath());
         assertEquals(4, singleSlice.size());
 
         TokenTree multiTree = TokenTree.parseJavaTokens(Tokenizer.tokenize(
             "import d1.d2.DeepClass; class Bob"
         ));
         List<TokenTree> multiSlice = multiTree.getTrees();
-        assertEquals(multiLevel, ImportStatement.tryBuilding(multiSlice));
+        ImportStatement multiBuilt = ImportStatement.tryBuilding(multiSlice);
+        assertEquals(multiLevel.getClassPath().getClassName(), multiBuilt.getClassPath().getClassName());
+        assertEquals(multiLevel.getClassPath().getPackagePath(), multiBuilt.getClassPath().getPackagePath());
         assertEquals(2, multiSlice.size());
     }
 }
