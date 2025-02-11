@@ -24,6 +24,13 @@ public class Utils {
 
     // EFFECTS: attempt to take a subtree (branch) from a list of tokentrees
     public static TokenTree takeTree(List<TokenTree> tts) throws UnexpectedToken, NoMoreTokens  {
-        return null; //stub
+        if (tts.size() == 0) {
+            throw new NoMoreTokens();
+        } else if (tts.get(0).isLeaf()) {
+            throw new UnexpectedToken();
+        } else {
+            TokenTree taken = tts.remove(0);
+            return taken;
+        }
     }
 }
