@@ -53,7 +53,6 @@ public class ImportStatement {
         trees.clear();
         trees.addAll(eaten);
         return new ImportStatement(new ClassPath(packages, className));
-
     }
 
     public ClassPath getClassPath() {
