@@ -19,7 +19,7 @@ public class PackageStatement {
     
     // MODIFIES: trees
     // EFFECTS: attempt to build the feature from a slice of token trees
-    public static ImportStatement tryBuilding(List<TokenTree> trees) throws NoMoreTokens, UnexpectedToken {
+    public static PackageStatement tryBuilding(List<TokenTree> trees) throws NoMoreTokens, UnexpectedToken {
         return null; //stub
     }
 
