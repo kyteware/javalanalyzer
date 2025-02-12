@@ -43,11 +43,7 @@ public class PackageStatement {
                 throw new UnexpectedToken();
             }
         }
-
-        if (levels.size() == 0) {
-            throw new UnexpectedToken();
-        }
-
+        
         trees.clear();
         trees.addAll(eaten);
         return new PackageStatement(new ClassPath(levels, null));
