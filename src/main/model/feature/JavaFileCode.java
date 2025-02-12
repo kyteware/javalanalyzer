@@ -3,7 +3,9 @@ package model.feature;
 import java.util.List;
 
 import model.ClassPath;
+import model.NoMoreTokens;
 import model.TokenTree;
+import model.UnexpectedToken;
 
 // the code of an entire java file
 public class JavaFileCode {
@@ -13,7 +15,7 @@ public class JavaFileCode {
     }
 
     // EFFECTS: attempts to parse a list of token trees into a java file
-    public static JavaFileCode tryBuilding(List<TokenTree> trees) {
+    public static JavaFileCode tryBuilding(List<TokenTree> trees) throws UnexpectedToken, NoMoreTokens {
         return null; // stub
     }
 
