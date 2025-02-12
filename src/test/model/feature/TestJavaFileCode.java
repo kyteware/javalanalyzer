@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import model.ClassPath;
+import model.CodeException;
 import model.NoMoreTokens;
 import model.TokenTree;
 import model.Tokenizer;
@@ -23,7 +24,7 @@ public class TestJavaFileCode {
     }
 
     @Test
-    public void oneImportCodeTest() throws TooManyPackageDecls {
+    public void oneImportCodeTest() throws CodeException {
         JavaFileCode oneImportCode = JavaFileCode.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
             "import bob.Van;"
         )).getTrees());
@@ -36,7 +37,7 @@ public class TestJavaFileCode {
     }
 
     @Test
-    public void manyImportsCodeTest() throws TooManyPackageDecls {
+    public void manyImportsCodeTest() throws CodeException {
         JavaFileCode manyImportsCode = JavaFileCode.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
             "import bob.Van;\nimport fred.joe.Car;"
         )).getTrees());
@@ -55,7 +56,7 @@ public class TestJavaFileCode {
     }
 
     @Test
-    public void onePackageCodeTest() throws TooManyPackageDecls {
+    public void onePackageCodeTest() throws CodeException {
         JavaFileCode onePackageCode = JavaFileCode.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
             "package my.pack;"
         )).getTrees());
@@ -69,7 +70,7 @@ public class TestJavaFileCode {
     }
 
     @Test
-    public void fullJavaCodeFileTest() throws TooManyPackageDecls {
+    public void fullJavaCodeFileTest() throws CodeException {
         JavaFileCode javaFileCode = JavaFileCode.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
             "package my.pack;\nclass MyClass {DOESN'T MATTER WHAT HAPPENS HERE YET :}\n import my.Thing;"
         )).getTrees());

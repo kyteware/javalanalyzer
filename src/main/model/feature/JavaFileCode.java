@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.ClassPath;
+import model.CodeException;
 import model.NoMoreTokens;
 import model.TokenTree;
 import model.TooManyPackageDecls;
@@ -21,7 +22,7 @@ public class JavaFileCode {
     }
 
     // EFFECTS: attempts to parse a list of token trees into a java file
-    public static JavaFileCode tryBuilding(List<TokenTree> trees) throws TooManyPackageDecls {
+    public static JavaFileCode tryBuilding(List<TokenTree> trees) throws CodeException {
         JavaFileCode code = new JavaFileCode();
         List<TokenTree> eaten = new ArrayList<>(trees);
 

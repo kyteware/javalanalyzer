@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import model.ClassPath;
+import model.CodeException;
 import model.NoMoreTokens;
 import model.TokenTree;
 import model.Tokenizer;
@@ -41,7 +42,7 @@ public class TestPackageStatement {
     }
 
     @Test
-    public void tryBuildingNormalTest() throws NoMoreTokens, UnexpectedToken {
+    public void tryBuildingNormalTest() throws CodeException {
         TokenTree singleTree = TokenTree.parseJavaTokens(Tokenizer.tokenize(
             "package myPackage;"
         ));
@@ -106,7 +107,7 @@ public class TestPackageStatement {
     }
 
     @Test
-    public void tryBuildingExtraTest() throws UnexpectedToken, NoMoreTokens {
+    public void tryBuildingExtraTest() throws CodeException {
         TokenTree singleTree = TokenTree.parseJavaTokens(Tokenizer.tokenize(
             "package myPackage;;;;;"
         ));

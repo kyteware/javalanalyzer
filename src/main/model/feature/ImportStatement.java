@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.ClassPath;
+import model.CodeException;
 import model.NoMoreTokens;
 import model.TokenTree;
 import model.UnexpectedToken;
@@ -20,7 +21,7 @@ public class ImportStatement {
     
     // MODIFIES: trees
     // EFFECTS: attempt to build the feature from a slice of token trees
-    public static ImportStatement tryBuilding(List<TokenTree> trees) throws NoMoreTokens, UnexpectedToken {
+    public static ImportStatement tryBuilding(List<TokenTree> trees) throws CodeException {
         List<TokenTree> eaten = new ArrayList<>(trees);
         if (!Utils.takeToken(eaten).equals("import")) {
             throw new UnexpectedToken();

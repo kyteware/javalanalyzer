@@ -1,3 +1,3 @@
 package model;
 
-public class TooManyPackageDecls extends Exception {}
+public class TooManyPackageDecls extends CodeException {}
