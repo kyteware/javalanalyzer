@@ -23,7 +23,7 @@ public class TestJavaFileCode {
     }
 
     @Test
-    public void oneImportCodeTest() throws UnexpectedToken, NoMoreTokens {
+    public void oneImportCodeTest() throws TooManyPackageDecls {
         JavaFileCode oneImportCode = JavaFileCode.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
             "import bob.Van;"
         )).getTrees());
@@ -36,7 +36,7 @@ public class TestJavaFileCode {
     }
 
     @Test
-    public void manyImportsCodeTest() throws UnexpectedToken, NoMoreTokens {
+    public void manyImportsCodeTest() throws TooManyPackageDecls {
         JavaFileCode manyImportsCode = JavaFileCode.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
             "import bob.Van;\nimport fred.joe.Car;"
         )).getTrees());
@@ -55,7 +55,7 @@ public class TestJavaFileCode {
     }
 
     @Test
-    public void onePackageCodeTest() throws UnexpectedToken, NoMoreTokens {
+    public void onePackageCodeTest() throws TooManyPackageDecls {
         JavaFileCode onePackageCode = JavaFileCode.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
             "package my.pack;"
         )).getTrees());
@@ -69,14 +69,14 @@ public class TestJavaFileCode {
     }
 
     @Test
-    public void fullJavaCodeFileTest() throws UnexpectedToken, NoMoreTokens {
+    public void fullJavaCodeFileTest() throws TooManyPackageDecls {
         JavaFileCode javaFileCode = JavaFileCode.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
             "package my.pack;\nclass MyClass {DOESN'T MATTER WHAT HAPPENS HERE YET :}\n import my.Thing;"
         )).getTrees());
 
         List<String> path1 = new ArrayList<>();
         path1.add("my");
-        path1.add("patk");
+        path1.add("pack");
         assert cpEquals(new ClassPath(path1, null), javaFileCode.getPackage());
 
         List<String> path2 = new ArrayList<>();
@@ -99,6 +99,6 @@ public class TestJavaFileCode {
     }
 
     private static boolean cpEquals(ClassPath cp1, ClassPath cp2) {
-        return cp1.getClassName().equals(cp2.getClassName()) & cp1.getPackagePath().equals(cp2.getPackagePath());
+        return (cp1.getClassName() == cp2.getClassName() || cp1.getClassName().equals(cp2.getClassName())) && cp1.getPackagePath().equals(cp2.getPackagePath());
     }
 }
