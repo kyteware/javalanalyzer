@@ -70,9 +70,9 @@ public class TestPackageStatement {
         );
 
         assertThrows(
-            NoMoreTokens.class, 
+            UnexpectedToken.class, 
             () -> {PackageStatement.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
-        "package A"
+        "package 2.3;"
             )).getTrees());}
         );
 

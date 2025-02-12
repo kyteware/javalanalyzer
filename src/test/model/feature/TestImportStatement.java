@@ -71,9 +71,16 @@ public class TestImportStatement {
         );
 
         assertThrows(
-            NoMoreTokens.class, 
+            UnexpectedToken.class, 
             () -> {ImportStatement.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
-        "import A"
+        "import 3.2;"
+            )).getTrees());}
+        );
+        
+        assertThrows(
+            UnexpectedToken.class, 
+            () -> {ImportStatement.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
+        "import MyClass;"
             )).getTrees());}
         );
 

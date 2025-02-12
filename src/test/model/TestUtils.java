@@ -67,7 +67,10 @@ public class TestUtils {
             "[] e"
         )).getTrees();
 
-        assertEquals(TokenTree.parseJavaTokens(Tokenizer.tokenize("[]")).getTrees().get(0), Utils.takeTree(sample));
+        TokenTree first = Utils.takeTree(sample);
+
+        assertEquals(TokenTree.parseJavaTokens(Tokenizer.tokenize("[]")).getTrees().get(0).getTrees(), first.getTrees());
+        assertEquals(TokenTree.parseJavaTokens(Tokenizer.tokenize("[]")).getTrees().get(0).getDelimiters(), first.getDelimiters());
         assertEquals(1, sample.size());
 
         try {
