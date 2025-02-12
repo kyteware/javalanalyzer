@@ -25,7 +25,7 @@ public class JavaFileCode {
     }
 
     // EFFECTS: get the package path the file declares, or null if it doesn't declare one
-    public List<ClassPath> getPackage() {
+    public ClassPath getPackage() {
         return null;
     }
 }
