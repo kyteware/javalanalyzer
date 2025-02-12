@@ -2,6 +2,7 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class TestClassPath {
     private ClassPath justPackage;
     private List<String> fullPathDir;
     private ClassPath fullPath;
+    private ClassPath noPath;
 
     @BeforeEach
     public void beforeEach() {
@@ -29,10 +31,12 @@ public class TestClassPath {
         String[] rawFullPath = { "p1", "p2" };
         fullPathDir = Arrays.asList(rawFullPath);
         fullPath = new ClassPath(fullPathDir, "C3");
+
+        noPath = new ClassPath(new ArrayList<>(), null);
     }
 
     @Test
-    public void testConstructor() {
+    public void constructorTest() {
         assertEquals(justClassDir, justClass.getPackagePath());
         assertEquals("MyClass", justClass.getClassName());
         assertEquals(justPackageDir, justPackage.getPackagePath());
@@ -42,7 +46,7 @@ public class TestClassPath {
     }
 
     @Test
-    public void testConstructorThrowsOnWildcard() {
+    public void constructorThrowsOnWildcardTest() {
         assertThrows(UnsupportedOperationException.class, () -> {
             new ClassPath(null, "*");
         });
@@ -52,9 +56,10 @@ public class TestClassPath {
     }
 
     @Test
-    public void testStringify() {
+    public void stringifyTest() {
         assertEquals("MyClass", justClass.stringify());
         assertEquals("outer.inner", justPackage.stringify());
         assertEquals("p1.p2.C3", fullPath.stringify());
+        assertEquals("", noPath.stringify());
     }
 }
