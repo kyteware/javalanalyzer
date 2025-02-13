@@ -44,7 +44,7 @@ public class Javalanalyzer {
 
     private void displayProjectList() {
         System.out.println("Existing Projects:");
-        for (int i=0; i<projects.size(); i++) {
+        for (int i = 0; i < projects.size(); i++) {
             System.out.println("[" + String.valueOf(i) + "] " + projects.get(i).getName());
         }
         System.out.println();
@@ -68,39 +68,48 @@ public class Javalanalyzer {
             throw new InputException();
         }
         if (parts[0].equals("a")) {
-            try {
-                Path path = Path.of(new URI("file://" + parts[1]));
-                projects.add(new JavaProject(path));
-            } catch (URISyntaxException e) {
-                System.out.println("Invalid path, must be absolute...");
-                throw new InputException();
-            }
+            processMainAdd(parts[1]);
+        } else if (parts[0].equals("e")) {
+            processMainEnter(parts[1]);
+        } else if (parts[0].equals("r")) {
+            processMainRemove(parts[1]);
+        } else {
+            throw new InputException();
         }
-        else if (parts[0].equals("e")) {
-            try {
-                int i = Integer.parseInt(parts[1]);
-                runProjectMenu(projects.get(i));
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid argument, second argument should an integer...");
-                throw new InputException();
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("You must choose an id of an existing project");
-            }
+    }
+
+    private void processMainAdd(String arg) throws InputException {
+        try {
+            Path path = Path.of(new URI("file://" + arg));
+            projects.add(new JavaProject(path));
+        } catch (URISyntaxException e) {
+            System.out.println("Invalid path, must be absolute...");
+            throw new InputException();
         }
-        else if (parts[0].equals("r")) {
-            try {
-                int i = Integer.parseInt(parts[1]);
-                System.out.println("Removing project: " + projects.get(i).getName());
-                projects.remove(i);
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid argument, second argument should an integer...");
-                throw new InputException();
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("You must choose an id of an existing project...");
-                throw new InputException();
-            }
+    }
+
+    private void processMainEnter(String arg) throws InputException {
+        try {
+            int i = Integer.parseInt(arg);
+            runProjectMenu(projects.get(i));
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid argument, second argument should an integer...");
+            throw new InputException();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("You must choose an id of an existing project");
         }
-        else {
+    }
+
+    private void processMainRemove(String arg) throws InputException {
+        try {
+            int i = Integer.parseInt(arg);
+            System.out.println("Removing project: " + projects.get(i).getName());
+            projects.remove(i);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid argument, second argument should an integer...");
+            throw new InputException();
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("You must choose an id of an existing project...");
             throw new InputException();
         }
     }
@@ -142,15 +151,12 @@ public class Javalanalyzer {
         String line = input.nextLine();
         if (line.equals("l")) {
             reloadFiles(project);
-        }
-        else if (line.equals("p")) {
+        } else if (line.equals("p")) {
             System.out.print(project.genPackageDiagram().stringify());
-        }
-        else if (line.equals("x")) {
+        } else if (line.equals("x")) {
             System.out.println("Returning to main menu");
             return true;
-        }
-        else {
+        } else {
             throw new InputException();
         }
 
@@ -196,7 +202,7 @@ public class Javalanalyzer {
             StringBuilder builder = new StringBuilder();
             
             int charNum;
-            while ((charNum=reader.read()) != -1) {
+            while ((charNum = reader.read()) != -1) {
                 builder.append((char)charNum);
             }
 
