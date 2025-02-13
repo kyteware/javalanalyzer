@@ -5,22 +5,24 @@ import java.util.List;
 
 // a tree of java language tokens, can either be a branch with some children or a leaf with some tokens
 public class TokenTree {
-    public static int DELIMITED_CURLY = 0;
-    public static int DELIMITED_SQUARY = 1;
-    public static int DELIMITED_ROUND = 2;
-    public static int DELIMITED_ROOT = 3;
-    
     private boolean isLeaf;
     private String token;
     private List<TokenTree> trees;
-    private int delimiters;
+    private Delimiters delimiters;
+
+    public enum Delimiters {
+        CURLY,
+        SQUARE,
+        ROUND,
+        ROOT
+    }
 
     // EFFECTS: creates a leaf token tree
     public TokenTree(String token) {
         this.isLeaf = true;
         this.token = token;
         this.trees = null;
-        this.delimiters = DELIMITED_ROOT;
+        this.delimiters = Delimiters.ROOT;
     }
 
     // EFFECTS: create a branch token tree
@@ -28,7 +30,7 @@ public class TokenTree {
         this.isLeaf = false;
         this.token = null;
         this.trees = children;
-        this.delimiters = DELIMITED_ROOT;
+        this.delimiters = Delimiters.ROOT;
     }
 
     // REQUIRES: open/close parens and brackets line up properly
@@ -38,28 +40,17 @@ public class TokenTree {
         List<String> stack = new ArrayList<>();
         int branchStart = -1;
 
-        for (int i=0; i<tokens.size(); i++) {
+        for (int i = 0; i < tokens.size(); i++) {
             String token = tokens.get(i);
-            if (token.equals("{")
-                    | token.equals("[") 
-                    | token.equals("(")) {
+            if (token.equals("{") | token.equals("[") | token.equals("(")) {
                 if (stack.size() == 0) {
                     branchStart = i + 1;
                 }
                 stack.add(token);
-            } else if (token.equals("}")
-                    | token.equals("]")
-                    | token.equals(")")) { 
+            } else if (token.equals("}") | token.equals("]") | token.equals(")")) { 
                 if (stack.size() == 1) {
-                    int branchEnd = i;
-                    TokenTree inner = parseJavaTokens(tokens.subList(branchStart, branchEnd));
-                    if (token.equals("}")) {
-                        inner.delimiters = DELIMITED_CURLY;
-                    } else if (token.equals("]")) {
-                        inner.delimiters = DELIMITED_SQUARY;
-                    } else {
-                        inner.delimiters = DELIMITED_ROUND;
-                    }
+                    TokenTree inner = parseJavaTokens(tokens.subList(branchStart, i));
+                    inner.delimiters = TokenTree.delimsFromClose(token);
                     ttsSoFar.add(inner);
                 }
                 stack.remove(stack.size() - 1);
@@ -96,7 +87,20 @@ public class TokenTree {
 
     // REQUIRES: must be a branch node
     // EFFECT: gets the kind of delimiters that are wrapped around the branch node
-    public int getDelimiters() {
+    public Delimiters getDelimiters() {
         return delimiters;
+    }
+
+    private static Delimiters delimsFromClose(String close) {
+        if (close.equals(")")) {
+            return Delimiters.ROUND;
+        }
+        if (close.equals("]")) {
+            return Delimiters.ROUND;
+        }
+        if (close.equals("}")) {
+            return Delimiters.CURLY;
+        }
+        return Delimiters.ROOT;
     }
 }

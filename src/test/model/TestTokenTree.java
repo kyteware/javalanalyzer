@@ -54,20 +54,20 @@ public class TestTokenTree {
         ));
         assertEquals(1, emptyBraces.getTrees().size());
         assertEquals(0, emptyBraces.getTrees().get(0).getTrees().size());
-        assertEquals(TokenTree.DELIMITED_SQUARY, emptyBraces.getTrees().get(0).getDelimiters());
+        assertEquals(TokenTree.Delimiters.SQUARE, emptyBraces.getTrees().get(0).getDelimiters());
         
         TokenTree outer = emptyBracesDeep.getTrees().get(0);
-        assertEquals(TokenTree.DELIMITED_ROUND, outer.getDelimiters());
+        assertEquals(TokenTree.Delimiters.ROUND, outer.getDelimiters());
         assertEquals(1, outer.getTrees().size());
         TokenTree inner = outer.getTrees().get(0);
-        assertEquals(TokenTree.DELIMITED_CURLY, inner.getDelimiters());
+        assertEquals(TokenTree.Delimiters.CURLY, inner.getDelimiters());
         assertEquals(0, inner.getTrees().size());
     }
 
     @Test
     public void parseBranchManyTest() {
         TokenTree array = branchMany.getTrees().get(0);
-        assertEquals(TokenTree.DELIMITED_CURLY, array.getDelimiters());
+        assertEquals(TokenTree.Delimiters.CURLY, array.getDelimiters());
         assertTrue(array.isBranch());
         TokenTree expected = TokenTree.parseJavaTokens(Tokenizer.tokenize("1, 2, 3"));
         for (int i=0; i<expected.getTrees().size(); i++) {
@@ -78,7 +78,7 @@ public class TestTokenTree {
 
         TokenTree extras = branchMany.getTrees().get(1);
         assertTrue(extras.isBranch());
-        assertEquals(TokenTree.DELIMITED_SQUARY, extras.getDelimiters());
+        assertEquals(TokenTree.Delimiters.SQUARE, extras.getDelimiters());
     }
 
     @Test
