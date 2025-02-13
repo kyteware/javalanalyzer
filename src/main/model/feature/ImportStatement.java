@@ -30,19 +30,10 @@ public class ImportStatement {
         String className = null;
 
         while (true) {
-            String name = Utils.takeToken(eaten);
-            if (!Utils.isWord(name)) {
-                throw new UnexpectedToken();
-            }
-            String div = Utils.takeToken(eaten);
-            
-            if (div.equals(".")) {
-                packages.add(name);
-            } else if (div.equals(";")) {
-                className = name;
+            String maybeClassname = parseChunk(eaten, packages);
+            if (maybeClassname != null) {
+                className = maybeClassname;
                 break;
-            } else {
-                throw new UnexpectedToken();
             }
         }
 
@@ -57,5 +48,22 @@ public class ImportStatement {
 
     public ClassPath getClassPath() {
         return classPath;
+    }
+
+    private static String parseChunk(List<TokenTree> eaten, List<String> packagesSoFar) throws CodeException {
+        String name = Utils.takeToken(eaten);
+        if (!Utils.isWord(name)) {
+            throw new UnexpectedToken();
+        }
+        String div = Utils.takeToken(eaten);
+        
+        if (div.equals(".")) {
+            packagesSoFar.add(name);
+            return null;
+        } else if (div.equals(";")) {
+            return name;
+        } else {
+            throw new UnexpectedToken();
+        }
     }
 }
