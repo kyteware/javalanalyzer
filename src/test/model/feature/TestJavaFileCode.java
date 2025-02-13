@@ -9,11 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import model.ClassPath;
 import model.CodeException;
-import model.NoMoreTokens;
 import model.TokenTree;
 import model.Tokenizer;
 import model.TooManyPackageDecls;
-import model.UnexpectedToken;
 
 public class TestJavaFileCode {
     @Test

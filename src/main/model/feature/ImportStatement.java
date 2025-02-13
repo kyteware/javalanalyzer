@@ -5,7 +5,6 @@ import java.util.List;
 
 import model.ClassPath;
 import model.CodeException;
-import model.NoMoreTokens;
 import model.TokenTree;
 import model.UnexpectedToken;
 import model.Utils;
