@@ -47,4 +47,15 @@ public class JavaProject {
     public PackageDiagram genPackageDiagram() {
         return new PackageDiagram(classes, imports);
     }
+
+    // EFFECTS: returns the number of classes loaded
+    public int numClasses() {
+        return 0; // stub
+    }
+
+    // MODIFIES: this
+    // EFFECTS: clears all the loaded classes, returning the numClasses to 0
+    public void clearClasses() {
+        // stub
+    }
 }
