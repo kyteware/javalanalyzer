@@ -46,6 +46,7 @@ public class ImportStatement {
         return new ImportStatement(new ClassPath(packages, className));
     }
 
+    // EFFECTS: return the classpath being imported
     public ClassPath getClassPath() {
         return classPath;
     }
