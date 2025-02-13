@@ -70,5 +70,6 @@ public class TestClassPath {
         assertNotEquals(justClass, null);
         assertNotEquals(justClass, "hi");
         assertEquals(new ClassPath(fullPathDir, "C3"), fullPath);
+        assertEquals(new ClassPath(justPackageDir, null), justPackage);
     }
 }

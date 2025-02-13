@@ -52,6 +52,6 @@ public class ClassPath {
         ClassPath other = (ClassPath) o;
         
         return packagePath.equals(other.packagePath) && 
-            className.equals(other.className);
+            (className == other.className || className.equals(other.className));
     }
 }
