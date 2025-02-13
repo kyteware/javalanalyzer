@@ -2,6 +2,7 @@ package model;
 
 import java.util.List;
 import java.util.Map;
+import java.util.AbstractMap.SimpleEntry;
 
 // representation of a package diagram
 public class PackageDiagram {
@@ -16,7 +17,7 @@ public class PackageDiagram {
     }
 
     // EFFECTS: get all the imports made in the diagram
-    public Map<ClassPath, ClassPath> getImports() {
+    public List<SimpleEntry<ClassPath, ClassPath>> getImports() {
         return null; //stub
     }
 
