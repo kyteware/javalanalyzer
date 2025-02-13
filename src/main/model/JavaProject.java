@@ -26,6 +26,7 @@ public class JavaProject {
         return projectPath.resolve("src").resolve("main");
     }
 
+    // EFFECTS: gets the name of the java project
     public String getName() {
         return projectPath.getFileName().toString();
     }

@@ -42,6 +42,7 @@ public class ClassPath {
         }
     }
 
+    // EFFECTS: checks if classpath is equal to another classpath
     public boolean equals(Object o) {
         if (o == null) {
             return false;

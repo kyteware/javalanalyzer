@@ -13,20 +13,24 @@ import java.util.Scanner;
 import model.CodeException;
 import model.JavaProject;
 
+// a class representing the runtime of javalanalyzer
 public class Javalanalyzer {
     private ArrayList<JavaProject> projects;
     private Scanner input;
 
+    // EFFECTS: build and start javalanalyzer
     public Javalanalyzer() {
         init();
         runMainMenu();
     }
 
+    // EFFECTS: init the fields
     private void init() {
         projects = new ArrayList<>();
         input = new Scanner(System.in);
     }
 
+    // EFFECTS: run the loop for the main menu
     private void runMainMenu() {
         while (true) {
             displayProjectList();
@@ -42,6 +46,7 @@ public class Javalanalyzer {
         }
     }
 
+    // EFFECTS: display the list of existing java projects
     private void displayProjectList() {
         System.out.println("Existing Projects:");
         for (int i = 0; i < projects.size(); i++) {
@@ -50,6 +55,7 @@ public class Javalanalyzer {
         System.out.println();
     }
     
+    // EFFECTS: display the options in the main menu
     private void displayMainOptions() {
         System.out.println("Add a project:");
         System.out.println(">a [PATH]");
@@ -60,6 +66,7 @@ public class Javalanalyzer {
         System.out.println();
     }
 
+    // EFFECTS: process a user command in the main menu
     private void processMainCommand() throws InputException {
         System.out.print(">");
         String line = input.nextLine();
@@ -78,6 +85,7 @@ public class Javalanalyzer {
         }
     }
 
+    // EFFECTS: process the command to add a new project
     private void processMainAdd(String arg) throws InputException {
         try {
             Path path = Path.of(new URI("file://" + arg));
@@ -88,6 +96,7 @@ public class Javalanalyzer {
         }
     }
 
+    // EFFECTS: process the command to enter a project
     private void processMainEnter(String arg) throws InputException {
         try {
             int i = Integer.parseInt(arg);
@@ -100,6 +109,7 @@ public class Javalanalyzer {
         }
     }
 
+    // EFFECTS: process the command to remove a project
     private void processMainRemove(String arg) throws InputException {
         try {
             int i = Integer.parseInt(arg);
@@ -114,6 +124,8 @@ public class Javalanalyzer {
         }
     }
 
+    // MODIFIES: project
+    // EFFECTS: run the loop for a project menu
     private void runProjectMenu(JavaProject project) {
         while (true) {
             displayProjectStatus(project);
@@ -129,6 +141,7 @@ public class Javalanalyzer {
         }
     }
 
+    // EFFECTS: display the project status for a given project
     private void displayProjectStatus(JavaProject project) {
         System.out.println("Status on project: " + project.getName());
         System.out.println("Path to code: " + project.getMainPath().toString());
@@ -136,6 +149,7 @@ public class Javalanalyzer {
         System.out.println();
     }
 
+    // EFFECTS: display the options availible in a project menu
     private void displayProjectOptions() {
         System.out.println("Load/Reload project files:");
         System.out.println(">l");
@@ -146,6 +160,8 @@ public class Javalanalyzer {
         System.out.println();
     }
 
+    // MODIFIES: project
+    // EFFECTS: process a command in a project menu
     private boolean processProjectCommand(JavaProject project) throws InputException {
         System.out.print(">");
         String line = input.nextLine();
@@ -163,6 +179,8 @@ public class Javalanalyzer {
         return false;
     }
 
+    // MODIFIES: project
+    // EFFECTS: reload all project files
     private void reloadFiles(JavaProject project) {
         project.clearClasses();
 
@@ -174,9 +192,10 @@ public class Javalanalyzer {
         }
     }
 
+    // MODIFIES: project
+    // EFFECTS: run the loop for a project menu
     private void handleProjectFile(JavaProject project, Path path) {
         File file = new File(path.toString());
-        System.out.println(path.toString());
         if (file.isDirectory()) {
             return;
         }
@@ -186,8 +205,6 @@ public class Javalanalyzer {
             return;
         }
 
-        System.out.println("we made it");
-
         try {
             project.loadJavaFile(path, contents);
             System.out.println("Loaded java file: " + path.toString());
@@ -196,6 +213,7 @@ public class Javalanalyzer {
         }
     }
 
+    // EFFECTS: load the contents of a file
     private String loadFile(File file) {
         try {
             FileReader reader = new FileReader(file);

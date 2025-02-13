@@ -51,6 +51,8 @@ public class ImportStatement {
         return classPath;
     }
 
+    // MODIFIES: eaten, packagesSoFar
+    // EFFECTS: parse a chunk of an import statement and take it out of eaten
     private static String parseChunk(List<TokenTree> eaten, List<String> packagesSoFar) throws CodeException {
         String name = Utils.takeToken(eaten);
         if (!Utils.isWord(name)) {

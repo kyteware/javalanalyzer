@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+// utility class for tokenizing java code
 public class Tokenizer {
     private static String stringMatch = "\"(\\\\\"|.)*?\"";
     private static String charMatch = "'.'";
@@ -16,6 +17,7 @@ public class Tokenizer {
     private static String tokenMatch = String.join("|", allMatches);
     private static Pattern pattern = Pattern.compile(tokenMatch);
 
+    // empty contructor to ignore code coverage for class init
     private Tokenizer() {
         
     }

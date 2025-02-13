@@ -49,6 +49,7 @@ public class PackageStatement {
         return new PackageStatement(new ClassPath(levels, null));
     }
 
+    // EFFECTS: get the path of the package statement
     public ClassPath getPath() {
         return path;
     }

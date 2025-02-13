@@ -43,6 +43,7 @@ public class PackageDiagram {
         return String.join("\n", parts);
     }
 
+    // EFFECTS: stringify a specific package
     private String stringifyPackage(List<String> pkg) {
         List<ClassPath> foundClasses = new ArrayList<>();
 
@@ -62,6 +63,7 @@ public class PackageDiagram {
         return String.join("", parts);
     }
 
+    // EFFECTS: stringify the imports of a class
     private String stringifyImports(ClassPath classPath) {
         List<String> parts = new ArrayList<>();
 

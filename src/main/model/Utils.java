@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 // various utilities for parsing java code
 public class Utils {
+    // empty constructor to get rid of code coverage problems
     private Utils() {
         
     }

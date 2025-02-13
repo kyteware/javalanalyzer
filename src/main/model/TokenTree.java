@@ -10,6 +10,7 @@ public class TokenTree {
     private List<TokenTree> trees;
     private Delimiters delimiters;
 
+    // enum representing kinds of delimiters in java
     public enum Delimiters {
         CURLY,
         SQUARE,
@@ -91,6 +92,8 @@ public class TokenTree {
         return delimiters;
     }
 
+    // REQUIRES: close is a valid closer
+    // EFFECTS: return the appropriate delimiters for a closing bracket
     private static Delimiters delimsFromClose(String close) {
         if (close.equals(")")) {
             return Delimiters.ROUND;
