@@ -96,11 +96,10 @@ public class TokenTree {
             return Delimiters.ROUND;
         }
         if (close.equals("]")) {
-            return Delimiters.ROUND;
+            return Delimiters.SQUARE;
         }
-        if (close.equals("}")) {
+        else {
             return Delimiters.CURLY;
         }
-        return Delimiters.ROOT;
     }
 }
