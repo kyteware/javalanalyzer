@@ -62,4 +62,13 @@ public class TestClassPath {
         assertEquals("p1.p2.C3", fullPath.stringify());
         assertEquals("", noPath.stringify());
     }
+
+    @Test
+    public void equalsTest() {
+        assertEquals(new ClassPath(new ArrayList<>(), "MyClass"), justClass);
+        assertNotEquals(new ClassPath(new ArrayList<>(), "MyClasss"), justClass);
+        assertNotEquals(justClass, null);
+        assertNotEquals(justClass, "hi");
+        assertEquals(new ClassPath(fullPathDir, "C3"), fullPath);
+    }
 }

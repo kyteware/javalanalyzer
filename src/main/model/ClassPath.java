@@ -41,4 +41,17 @@ public class ClassPath {
             return pathString + "." + className;
         }
     }
+
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (o.getClass() != ClassPath.class) {
+            return false;
+        }
+        ClassPath other = (ClassPath) o;
+        
+        return packagePath.equals(other.packagePath) && 
+            className.equals(other.className);
+    }
 }
