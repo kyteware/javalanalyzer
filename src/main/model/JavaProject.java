@@ -26,6 +26,10 @@ public class JavaProject {
         return projectPath.resolve("src").resolve("main");
     }
 
+    public String getName() {
+        return projectPath.getFileName().toString();
+    }
+
     // EFFECTS: load a java file into the project
     // MODIFIES: this
     // REQUIRES: is actually a java file and named appropriately

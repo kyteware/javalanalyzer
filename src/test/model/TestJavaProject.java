@@ -20,6 +20,11 @@ public class TestJavaProject {
     }
 
     @Test
+    public void getNameTest() {
+        assertEquals("MyProject", project.getName());
+    }
+
+    @Test
     public void loadAndGenTest() throws CodeException {
         project.loadJavaFile(Path.of("etc", "MyProject", "src", "main", "model", "Class1.java"), "package model;");
         project.loadJavaFile(Path.of("etc", "MyProject", "src", "main", "model", "d", "Class2.java"), "package model.d; import model.Class1;");
