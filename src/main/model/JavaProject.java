@@ -50,12 +50,13 @@ public class JavaProject {
 
     // EFFECTS: returns the number of classes loaded
     public int numClasses() {
-        return 0; // stub
+        return classes.size();
     }
 
     // MODIFIES: this
     // EFFECTS: clears all the loaded classes, returning the numClasses to 0
     public void clearClasses() {
-        // stub
+        imports.clear();
+        classes.clear();
     }
 }
