@@ -32,4 +32,15 @@ public class TestJavaProject {
         assertEquals(
             "package model:\n\tclass Class1\n\npackage model.d:\n\tclass Class2\n\t\t-> model.Class1\n", project.genPackageDiagram().stringify());
     }
+
+    @Test
+    public void numAndClearTest() throws CodeException {
+        assertEquals(0, project.numClasses());
+        project.loadJavaFile(Path.of("etc", "MyProject", "src", "main", "model", "Class1.java"), "package model;");
+        assertEquals(1, project.numClasses());
+        project.loadJavaFile(Path.of("etc", "MyProject", "src", "main", "model", "d", "Class2.java"), "package model.d; import model.Class1;");
+        assertEquals(2, project.numClasses());
+        project.clearClasses();
+        assertEquals(0, project.numClasses());
+    }
 }
