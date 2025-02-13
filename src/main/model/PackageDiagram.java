@@ -7,7 +7,7 @@ import java.util.AbstractMap.SimpleEntry;
 // representation of a package diagram
 public class PackageDiagram {
     // EFFECTS: build a package diagram from a list of classes in classpath form and all of their imports
-    public PackageDiagram(List<ClassPath> classes, Map<ClassPath, ClassPath> imports) {
+    public PackageDiagram(List<ClassPath> classes, List<SimpleEntry<ClassPath, ClassPath>> imports) {
         // stub
     }
 
