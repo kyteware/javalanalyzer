@@ -34,7 +34,9 @@ public class JavaProject {
     // MODIFIES: this
     // REQUIRES: is actually a java file and named appropriately
     public void loadJavaFile(Path path, String code) throws CodeException {
-        JavaFileCode compiled = JavaFileCode.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(code)).getTrees());
+        JavaFileCode compiled = JavaFileCode.tryBuilding(
+                TokenTree.parseJavaTokens(Tokenizer.tokenize(code)).getTrees()
+        );
         String className = path.getFileName().toString().split("\\.")[0];
         ClassPath classPath = new ClassPath(compiled.getPackage().getPackagePath(), className);
         classes.add(classPath);

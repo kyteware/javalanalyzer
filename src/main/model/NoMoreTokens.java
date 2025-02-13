@@ -1,3 +1,5 @@
 package model;
 
-public class NoMoreTokens extends CodeException {}
+public class NoMoreTokens extends CodeException {
+    
+}

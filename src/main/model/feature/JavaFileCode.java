@@ -31,8 +31,7 @@ public class JavaFileCode {
                 ImportStatement imported = ImportStatement.tryBuilding(eaten);
                 code.imports.add(imported.getClassPath());
                 continue;
-            }
-            catch (NoMoreTokens | UnexpectedToken e) {
+            } catch (NoMoreTokens | UnexpectedToken e) {
                 // it wasn't an import statement
             }
 
@@ -44,8 +43,7 @@ public class JavaFileCode {
                     throw new TooManyPackageDecls();
                 }
                 continue;
-            }
-            catch (NoMoreTokens | UnexpectedToken e) {
+            } catch (NoMoreTokens | UnexpectedToken e) {
                 // it wasn't a package statement
             }
 
