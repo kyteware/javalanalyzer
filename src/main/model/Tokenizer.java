@@ -15,6 +15,8 @@ public class Tokenizer {
     private static String tokenMatch = String.join("|", allMatches);
     private static Pattern pattern = Pattern.compile(tokenMatch);
 
+    private Tokenizer() {}
+
     // EFFECTS: splits the content of a java file into tokens
     public static List<String> tokenize(String rawJava) {
         Matcher matcher = pattern.matcher(rawJava);
