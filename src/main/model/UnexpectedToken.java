@@ -1,3 +1,5 @@
 package model;
 
-public class UnexpectedToken extends CodeException {}
+public class UnexpectedToken extends CodeException {
+    
+}

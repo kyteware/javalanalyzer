@@ -10,12 +10,15 @@ public class Tokenizer {
     private static String charMatch = "'.'";
     private static String wordMatch = "([A-Z]|[a-z]|_)([A-Z]|[a-z]|[0-9]|_)*";
     private static String numberMatch = "[0-9]+\\.?[0-9]*";
-    private static String symbolMatch = "\\!|\\@|\\%|\\^|\\&|\\*|\\(|\\)|\\||\\-|\\+|\\[|\\]|\\{|\\}|\\;|\\:|\\,|\\.|\\<|\\>|\\/";
+    private static String symbolMatch 
+            = "\\!|\\@|\\%|\\^|\\&|\\*|\\(|\\)|\\||\\-|\\+|\\[|\\]|\\{|\\}|\\;|\\:|\\,|\\.|\\<|\\>|\\/";
     private static String[] allMatches = { stringMatch, charMatch, wordMatch, numberMatch, symbolMatch };
     private static String tokenMatch = String.join("|", allMatches);
     private static Pattern pattern = Pattern.compile(tokenMatch);
 
-    private Tokenizer() {}
+    private Tokenizer() {
+        
+    }
 
     // EFFECTS: splits the content of a java file into tokens
     public static List<String> tokenize(String rawJava) {
