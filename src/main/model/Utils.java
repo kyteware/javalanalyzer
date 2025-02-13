@@ -5,6 +5,10 @@ import java.util.regex.Pattern;
 
 // various utilities for parsing java code
 public class Utils {
+    private Utils() {
+        
+    }
+
     // EFFECTS: true if the token is a valid java variable name or keyword
     public static boolean isWord(String token) {
         return Pattern.compile("([A-Z]|[a-z]|_)([A-Z]|[a-z]|[0-9]|_)*").matcher(token).matches();
