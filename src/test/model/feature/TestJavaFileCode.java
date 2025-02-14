@@ -37,7 +37,7 @@ public class TestJavaFileCode {
     @Test
     public void manyImportsCodeTest() throws CodeException {
         JavaFileCode manyImportsCode = JavaFileCode.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
-            "import bob.Van;\nimport fred.joe.Car;"
+            "import bob.Van;\nimport fred.joe.Car;\nimport java.util.*;"
         )).getTrees());
 
         List<String> path1 = new ArrayList<>();
