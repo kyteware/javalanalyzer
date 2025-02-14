@@ -9,6 +9,7 @@ import model.NoMoreTokens;
 import model.TokenTree;
 import model.TooManyPackageDecls;
 import model.UnexpectedToken;
+import model.UnsupportedWildcardImport;
 
 // the code of an entire java file
 public class JavaFileCode {
@@ -31,8 +32,8 @@ public class JavaFileCode {
                 ImportStatement imported = ImportStatement.tryBuilding(eaten);
                 code.imports.add(imported.getClassPath());
                 continue;
-            } catch (NoMoreTokens | UnexpectedToken e) {
-                // it wasn't an import statement
+            } catch (NoMoreTokens | UnexpectedToken | UnsupportedWildcardImport e) {
+                // it wasn't an import statement or it had a wildcard import
             }
 
             try {
