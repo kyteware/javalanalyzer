@@ -97,11 +97,9 @@ public class TokenTree {
     private static Delimiters delimsFromClose(String close) {
         if (close.equals(")")) {
             return Delimiters.ROUND;
-        }
-        if (close.equals("]")) {
+        } else if (close.equals("]")) {
             return Delimiters.SQUARE;
-        }
-        else {
+        } else {
             return Delimiters.CURLY;
         }
     }
