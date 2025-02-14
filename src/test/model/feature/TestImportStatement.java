@@ -14,6 +14,7 @@ import model.NoMoreTokens;
 import model.TokenTree;
 import model.Tokenizer;
 import model.UnexpectedToken;
+import model.UnsupportedWildcardImport;
 
 
 public class TestImportStatement {
@@ -110,6 +111,13 @@ public class TestImportStatement {
             UnexpectedToken.class, 
             () -> {ImportStatement.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
         "import bleh x.y.z;"
+            )).getTrees());}
+        );
+
+        assertThrows(
+            UnsupportedWildcardImport.class, 
+            () -> {ImportStatement.tryBuilding(TokenTree.parseJavaTokens(Tokenizer.tokenize(
+        "import x.y.*;"
             )).getTrees());}
         );
     }

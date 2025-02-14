@@ -7,6 +7,7 @@ import model.ClassPath;
 import model.CodeException;
 import model.TokenTree;
 import model.UnexpectedToken;
+import model.UnsupportedWildcardImport;
 import model.Utils;
 
 // representation of a java import statement
@@ -55,10 +56,15 @@ public class ImportStatement {
     // EFFECTS: parse a chunk of an import statement and take it out of eaten
     private static String parseChunk(List<TokenTree> eaten, List<String> packagesSoFar) throws CodeException {
         String name = Utils.takeToken(eaten);
+        String div = Utils.takeToken(eaten);
+
+        if (name.equals("*") && div.equals(";")) {
+            throw new UnsupportedWildcardImport();
+        }
+
         if (!Utils.isWord(name)) {
             throw new UnexpectedToken();
         }
-        String div = Utils.takeToken(eaten);
         
         if (div.equals(".")) {
             packagesSoFar.add(name);
