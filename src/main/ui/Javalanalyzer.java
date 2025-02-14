@@ -89,7 +89,12 @@ public class Javalanalyzer {
     private void processMainAdd(String arg) throws InputException {
         try {
             Path path = Path.of(new URI("file://" + arg));
-            projects.add(new JavaProject(path));
+            JavaProject newProject = new JavaProject(path);
+            if (!new File(newProject.getMainPath().toString()).isDirectory()) {
+                System.out.println("That isn't a java project, it doesn't have a /src/main directory...");
+                throw new InputException();
+            }
+            projects.add(newProject);
         } catch (URISyntaxException e) {
             System.out.println("Invalid path, must be absolute...");
             throw new InputException();
@@ -200,7 +205,6 @@ public class Javalanalyzer {
             return;
         }
         String contents = loadFile(file);
-        System.out.println(path.getFileName().toString());
         if (!path.getFileName().toString().endsWith(".java")) {
             return;
         }
