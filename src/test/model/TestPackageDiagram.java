@@ -43,8 +43,12 @@ public class TestPackageDiagram {
         imports.add(new SimpleEntry<>(c3, c4));
         imports.add(new SimpleEntry<>(c3, c5));
         imports.add(new SimpleEntry<>(c4, c5));
+        List<SimpleEntry<ClassPath, ClassPath>> importsPlus = new ArrayList<>(imports);
+        importsPlus.add(new SimpleEntry<>(
+            c4, new ClassPath(buildLos("java", "util", null), "List")
+        ));
 
-        complete = new PackageDiagram(classes2, imports);
+        complete = new PackageDiagram(classes2, importsPlus);
     }
 
     @Test
