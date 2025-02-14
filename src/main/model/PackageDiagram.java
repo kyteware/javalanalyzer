@@ -9,10 +9,10 @@ public class PackageDiagram {
     List<ClassPath> classes;
     List<SimpleEntry<ClassPath, ClassPath>> imports;
 
-    // EFFECTS: build a package diagram from a list of classes in classpath form and all of their imports
+    // EFFECTS: build a package diagram from a list of classes in classpath form and all of their imports, filtering out external imports
     public PackageDiagram(List<ClassPath> classes, List<SimpleEntry<ClassPath, ClassPath>> imports) {
         this.classes = classes;
-        this.imports = imports;
+        this.imports = new ArrayList<>(imports);
     }
 
     // EFFECTS: get the classpaths contained in the diagram
