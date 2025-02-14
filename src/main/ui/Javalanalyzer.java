@@ -66,6 +66,7 @@ public class Javalanalyzer {
         System.out.println();
     }
 
+    // MODIFIES: this
     // EFFECTS: process a user command in the main menu
     private void processMainCommand() throws InputException {
         System.out.print(">");
@@ -85,6 +86,7 @@ public class Javalanalyzer {
         }
     }
 
+    // MODIFIES: this
     // EFFECTS: process the command to add a new project
     private void processMainAdd(String arg) throws InputException {
         try {
@@ -101,6 +103,7 @@ public class Javalanalyzer {
         }
     }
 
+    // MODIFIES: this
     // EFFECTS: process the command to enter a project
     private void processMainEnter(String arg) throws InputException {
         try {
@@ -114,6 +117,7 @@ public class Javalanalyzer {
         }
     }
 
+    // MODIFIES: this
     // EFFECTS: process the command to remove a project
     private void processMainRemove(String arg) throws InputException {
         try {
