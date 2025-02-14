@@ -13,7 +13,7 @@ public class ClassPath {
     public ClassPath(List<String> packagePath, String className) {
         this.packagePath = packagePath;
         if (className != null && className.equals("*")) {
-            throw new UnsupportedOperationException("wildcard imports not supported");
+            throw new UnsupportedWildcardImport();
         }
         this.className = className;
     }

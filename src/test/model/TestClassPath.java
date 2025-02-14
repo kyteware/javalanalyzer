@@ -47,10 +47,10 @@ public class TestClassPath {
 
     @Test
     public void constructorThrowsOnWildcardTest() {
-        assertThrows(UnsupportedOperationException.class, () -> {
+        assertThrows(UnsupportedWildcardImport.class, () -> {
             new ClassPath(null, "*");
         });
-        assertThrows(UnsupportedOperationException.class, () -> {
+        assertThrows(UnsupportedWildcardImport.class, () -> {
             new ClassPath(justClassDir, "*");
         });
     }
