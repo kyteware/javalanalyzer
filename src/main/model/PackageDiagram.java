@@ -13,6 +13,12 @@ public class PackageDiagram {
     public PackageDiagram(List<ClassPath> classes, List<SimpleEntry<ClassPath, ClassPath>> imports) {
         this.classes = classes;
         this.imports = new ArrayList<>(imports);
+        for (int i = imports.size() - 1; i>=0; i--) {
+            ClassPath target = imports.get(i).getValue();
+            if (!classes.contains(target)) {
+                this.imports.remove(i);
+            }
+        }
     }
 
     // EFFECTS: get the classpaths contained in the diagram
