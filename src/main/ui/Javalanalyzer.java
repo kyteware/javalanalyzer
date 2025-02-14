@@ -7,8 +7,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 import model.CodeException;
 import model.JavaProject;
