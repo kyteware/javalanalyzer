@@ -41,7 +41,7 @@ public class Javalanalyzer {
                 System.out.println("Invalid input, try again...");
             }
 
-            System.out.println("\n");
+            System.out.println("------");
         }
     }
 
@@ -96,8 +96,8 @@ public class Javalanalyzer {
                 throw new InputException();
             }
             projects.add(newProject);
-        } catch (URISyntaxException e) {
-            System.out.println("Invalid path, must be absolute...");
+        } catch (URISyntaxException | IllegalArgumentException e) {
+            System.out.println("Invalid path... (good path looks like /path/to/my/Project)");
             throw new InputException();
         }
     }
