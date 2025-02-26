@@ -8,18 +8,13 @@ import model.JavaProject;
 
 // a class for deserializing json into our project state (a list of JavaProjects)
 public class JsonReader {
-    // EFFECTS: builds a jsonreader from the specified path and opens it
+    // EFFECTS: builds a jsonreader from the specified path
     public JsonReader(String path) {
         // stub
     }
 
-    // EFFECTS: reads the state from the json file and returns it
+    // EFFECTS: opens the json file, reads the state and then closes it
     public List<JavaProject> read() {
         return null; //stub
-    }
-
-    // EFFECTS: closes the json file
-    public void close() {
-        // stub
     }
 }
