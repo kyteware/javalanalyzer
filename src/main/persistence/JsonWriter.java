@@ -8,18 +8,13 @@ import model.JavaProject;
 
 // a class to serielize our application's state (a list of JavaProjects) to a file
 public class JsonWriter {
-    // EFFECTS: build a jsonwriter with a specified path and opens it
+    // EFFECTS: build a jsonwriter with a specified path
     public JsonWriter(String path) {
         // stub
     }
 
-    // EFFECTS: writes our application state to json and saves it
-    public void write_and_save(List<JavaProject> projects) {
-        // stub
-    }
-
-    // EFFECTS: close our json writer safely
-    public void close() {
+    // EFFECTS: opens the json file, writes our application state and then closes the file
+    public void write(List<JavaProject> projects) {
         // stub
     }
 }
