@@ -1,0 +1,47 @@
+[
+    {
+        "projectPath": "/path/to/Project1",
+        "classes": [
+            {
+                "packagePath": [
+                    "model"
+                ],
+                "className": "Class1"
+            },
+            {
+                "packagePath": [
+                    "util"
+                ],
+                "className": "MyUtils"
+            }
+        ],
+        "imports": [
+            {
+                "importer": {
+                    "packagePath": [
+                        "model"
+                    ],
+                    "className": "Class1"
+                },
+                "imported": {
+                    "packagePath": [
+                        "util"
+                    ],
+                    "className": "MyUtils"
+                }
+            }
+        ]
+    },
+    {
+        "projectPath": "/path/to/Project2",
+        "classes": [
+            {
+                "packagePath": [
+                    "ui"
+                ],
+                "className": "Main"
+            }
+        ],
+        "imports": []
+    }
+]
