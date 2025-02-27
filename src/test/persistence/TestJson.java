@@ -53,4 +53,11 @@ public class TestJson {
         assertEquals(expected.getClasses(), actual.getClasses());
         assertEquals(expected.getImports(), actual.getImports());
     }
+
+    public static void assertJavaProjectsEquals(List<JavaProject> expected, List<JavaProject> actual) {
+        assertEquals(expected.size(), actual.size());
+        for (int i=0; i<expected.size(); i++) {
+            assertJavaProjectEquals(expected.get(i), actual.get(i));
+        }
+    }
 }
