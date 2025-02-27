@@ -37,7 +37,7 @@ public class JavaProject {
     }
 
     // EFFECTS: gets the imports of the java project
-    public List<ClassPath> getImports() {
+    public List<SimpleEntry<ClassPath, ClassPath>> getImports() {
         return imports;
     }
 
