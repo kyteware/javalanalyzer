@@ -2,6 +2,7 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,16 @@ public class TestJavaProject {
     @Test
     public void getNameTest() {
         assertEquals("MyProject", project.getName());
+    }
+
+    @Test
+    public void getClassesTest() {
+        assertEquals(new ArrayList<>(), project.getClasses());
+    }
+
+    @Test
+    public void getImportsTest() {
+        assertEquals(new ArrayList<>(), project.getImports());
     }
 
     @Test
