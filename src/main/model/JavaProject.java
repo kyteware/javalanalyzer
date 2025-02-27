@@ -33,12 +33,12 @@ public class JavaProject {
 
     // EFFECTS: gets the classes of the java project
     public List<ClassPath> getClasses() {
-        return null; //stub
+        return classes;
     }
 
     // EFFECTS: gets the imports of the java project
     public List<ClassPath> getImports() {
-        return null; //stub
+        return imports;
     }
 
     // EFFECTS: load a java file into the project
