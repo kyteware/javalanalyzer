@@ -14,7 +14,7 @@ public class JsonWriter {
     }
 
     // EFFECTS: opens the json file, writes our application state and then closes the file
-    public void write(List<JavaProject> projects) {
+    public void write(List<JavaProject> projects) throws WriteError {
         // stub
     }
 }

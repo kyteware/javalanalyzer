@@ -14,7 +14,7 @@ public class JsonReader {
     }
 
     // EFFECTS: opens the json file, reads the state and then closes it
-    public List<JavaProject> read() {
+    public List<JavaProject> read() throws ReadError {
         return null; //stub
     }
 }
