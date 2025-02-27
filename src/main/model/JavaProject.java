@@ -31,6 +31,16 @@ public class JavaProject {
         return projectPath.getFileName().toString();
     }
 
+    // EFFECTS: gets the classes of the java project
+    public List<ClassPath> getClasses() {
+        return null; //stub
+    }
+
+    // EFFECTS: gets the imports of the java project
+    public List<ClassPath> getImports() {
+        return null; //stub
+    }
+
     // EFFECTS: load a java file into the project
     // MODIFIES: this
     // REQUIRES: is actually a java file and named appropriately
