@@ -9,13 +9,14 @@ I am choosing this project because I am interested in programming languages and 
 - [x] As a user, I want to be able to select a new Java project to analyze, specifying its path.
 - [x] As a user, I want to be able to see a list of previously analyzed java projects.
 - [x] As a user, I want to be able to remove a Java project from my list of previously visualized java projects.
-- [x] As a user, I want to be able to load and reload the project files of a java project.
+- [x] PHASE 1 REQUIREMENT: As a user, I want to be able to load and reload the project files of a java project *meaning I can add and remove elements by editing the java project*.
+- [x] PHASE 1 REQUIREMENT: As a user, I want to be able to see all of the files I've loaded from a java project.
 - [x] As a user, I want to be able to generate a package diagram of my project.
-- [x] As a user, I want to be able to save my list of recently accessed projects to a file.
-- [x] As a user, I want to be able to load my previously saved accessed projects from a file.
+- [x] PHASE 2 REQUIREMENT: As a user, I want to be able to save my list of recently accessed projects to a file.
+- [x] PHASE 2 REQUIREMENT: As a user, I want to be able to load my previously saved accessed projects from a file.
 
 ## Todo for self
-- [ ] Fix user stories to better fix needs
+- [x] Fix user stories to better fix needs
 - [ ] Fix code cvg
 - [ ] Add docs to main
 - [ ] Make work on windows
