@@ -14,12 +14,8 @@ I am choosing this project because I am interested in programming languages and 
 - [ ] As a user, I want to be able to save my list of recently accessed projects to a file.
 - [ ] As a user, I want to be able to load my previously saved accessed projects from a file.
 
-## Note to T.A.
-
-I don't know exactly which environment you are going to be testing my project in, and I want to make sure that you can successfully generate a package diagram of
-a project. Note that although it works on my project, which suggests that it is quite robust, it is possible I missed some cases and possibilities. I will try
-running it on more projects written by other people before part 2 of the project is due, and then I'll test it on some bigger projects.
-
-I'm sure that you know how to get the absolute path of a directory, but just in case you forget like I do all the time, run `pwd` while in the root of the project.
-If you are on windows (godspeed, also you'll need to run `echo %cd%` for the path instead), you may need to reformat your path into unix style like so:
-`C:\\path\\to\\JavaProject` -> `/path/to/JavaProject`.
+## Todo for self
+- [ ] Fix user stories to better fix needs
+- [ ] Fix code cvg
+- [ ] Add docs to main
+- [ ] Make work on windows
