@@ -2,6 +2,7 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -14,13 +15,13 @@ public class TestJavaProject {
     @BeforeEach
     public void beforeEach() {
         project = new JavaProject(Path.of("etc", "MyProject"));
-        preLoaded = new JavaProject(Path.of("/etc/Bob"), new ArrayList<>(), new ArrayList<>());
+        preLoaded = new JavaProject(Paths.get("/etc/Bob"), new ArrayList<>(), new ArrayList<>());
     }
 
     @Test
     public void mainPathTest() {
         assertEquals(Path.of("etc", "MyProject", "src", "main"), project.getMainPath());
-        assertEquals(Path.of("etc", "Bob", "src", "main"), preLoaded.getMainPath());
+        assertEquals(Path.of("/", "etc", "Bob", "src", "main"), preLoaded.getMainPath());
     }
 
     @Test
