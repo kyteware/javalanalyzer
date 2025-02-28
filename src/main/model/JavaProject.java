@@ -23,7 +23,9 @@ public class JavaProject {
 
     // EFFECTS: initialize a java project with pre-loaded metadata
     public JavaProject(Path path, List<ClassPath> classes, List<SimpleEntry<ClassPath, ClassPath>> imports) {
-        // stub
+        projectPath = path;
+        this.classes = classes;
+        this.imports = imports;
     }
 
     // EFFECTS: gets the path to the main code of the project
