@@ -19,6 +19,7 @@ public class TestJsonWriter {
     public void beforeEach() {
         writer = new JsonWriter("./data/testWriter.json");
         reader = new JsonReader("./data/testWriter.json");
+        TestJson.saturateExpectedProjects();
     }
 
     @Test
