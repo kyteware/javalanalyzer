@@ -27,7 +27,7 @@ public class TestJson {
         }
         try {
             p1.loadJavaFile(
-                Paths.get("/path/to/Project1/src/util/MyUtil.java"), 
+                Paths.get("/path/to/Project1/src/util/MyUtils.java"), 
                 "package util;"
             );
         } catch (Exception e) {
@@ -38,7 +38,7 @@ public class TestJson {
         try {
             p2.loadJavaFile(
                 Paths.get("/path/to/Project2/src/ui/Main.java"), 
-                "package model;"
+                "package ui;"
             );
         } catch (Exception e) {
             fail("this should NOT fail :(");
