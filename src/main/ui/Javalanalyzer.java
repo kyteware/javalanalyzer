@@ -7,6 +7,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 import model.JavaProject;
@@ -90,10 +91,7 @@ public class Javalanalyzer {
             processMainSave();
             return;
         }
-        String[] parts = line.split(" ");
-        if (parts.length != 2) {
-            throw new InputException();
-        }
+        String[] parts = line.split(" ", 2);
         if (parts[0].equals("a")) {
             processMainAdd(parts[1]);
         } else if (parts[0].equals("e")) {
@@ -131,14 +129,14 @@ public class Javalanalyzer {
     // EFFECTS: process the command to add a new project
     private void processMainAdd(String arg) throws InputException {
         try {
-            Path path = Path.of(new URI("file://" + arg));
+            Path path = Paths.get(arg);
             JavaProject newProject = new JavaProject(path);
             if (!new File(newProject.getMainPath().toString()).isDirectory()) {
                 System.out.println("That isn't a java project, it doesn't have a /src/main directory...");
                 throw new InputException();
             }
             projects.add(newProject);
-        } catch (URISyntaxException | IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("Invalid path... (good path looks like /path/to/my/Project)");
             throw new InputException();
         }
