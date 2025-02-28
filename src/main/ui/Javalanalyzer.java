@@ -11,11 +11,17 @@ import java.util.*;
 
 import model.CodeException;
 import model.JavaProject;
+import persistence.JsonReader;
+import persistence.JsonWriter;
+import persistence.ReadError;
+import persistence.WriteError;
 
 // a class representing the runtime of javalanalyzer
 public class Javalanalyzer {
-    private ArrayList<JavaProject> projects;
+    private List<JavaProject> projects;
     private Scanner input;
+    private JsonReader reader;
+    private JsonWriter writer;
 
     // EFFECTS: build and start javalanalyzer
     public Javalanalyzer() {
@@ -27,6 +33,8 @@ public class Javalanalyzer {
     private void init() {
         projects = new ArrayList<>();
         input = new Scanner(System.in);
+        reader = new JsonReader("./data/save.json");
+        writer = new JsonWriter("./data/save.json");
     }
 
     // EFFECTS: run the loop for the main menu
@@ -62,6 +70,10 @@ public class Javalanalyzer {
         System.out.println(">e [ID]");
         System.out.println("Remove a project");
         System.out.println(">r [ID]");
+        System.out.println("Load previously saved recent projects");
+        System.out.println(">l");
+        System.out.println("Save recent projects");
+        System.out.println(">s");
         System.out.println();
     }
 
@@ -70,6 +82,14 @@ public class Javalanalyzer {
     private void processMainCommand() throws InputException {
         System.out.print(">");
         String line = input.nextLine();
+        if (line.trim().equals("l")) {
+            processMainLoad();
+            return;
+        }
+        if (line.trim().equals("s")) {
+            processMainSave();
+            return;
+        }
         String[] parts = line.split(" ");
         if (parts.length != 2) {
             throw new InputException();
@@ -82,6 +102,28 @@ public class Javalanalyzer {
             processMainRemove(parts[1]);
         } else {
             throw new InputException();
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loades saved recent projects and prints dialog
+    private void processMainLoad() {
+        try {
+            List<JavaProject> loaded = reader.read();
+            projects = loaded;
+            System.out.println("Sucessfully loaded saved recent projects!");
+        } catch (ReadError e) {
+            System.out.println("Encountered an error trying to load your previous projects...");
+        }
+    }
+
+    // EFFECTS: saves recent projects and prints dialog
+    private void processMainSave() {
+        try {
+            writer.write(projects);
+            System.out.println("Sucessfully loaded saved recent projects!");
+        } catch (WriteError e) {
+            System.out.println("Encountered an error trying to save your recent projects...");
         }
     }
 
