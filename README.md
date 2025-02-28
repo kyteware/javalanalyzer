@@ -18,6 +18,6 @@ I am choosing this project because I am interested in programming languages and 
 ## Todo for self
 - [x] Fix user stories to better fix needs
 - [ ] Fix code cvg
-- [ ] Add docs to main
+- [x] Add docs to main
 - [ ] Make work on windows
 - [ ] Add exception folder
