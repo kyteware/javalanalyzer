@@ -9,15 +9,18 @@ import org.junit.jupiter.api.Test;
 
 public class TestJavaProject {
     private JavaProject project;
+    private JavaProject preLoaded;
 
     @BeforeEach
     public void beforeEach() {
         project = new JavaProject(Path.of("etc", "MyProject"));
+        preLoaded = new JavaProject(Path.of("/etc/Bob"), new ArrayList<>(), new ArrayList<>());
     }
 
     @Test
     public void mainPathTest() {
         assertEquals(Path.of("etc", "MyProject", "src", "main"), project.getMainPath());
+        assertEquals(Path.of("etc", "Bob", "src", "main"), preLoaded.getMainPath());
     }
 
     @Test
@@ -28,11 +31,13 @@ public class TestJavaProject {
     @Test
     public void getClassesTest() {
         assertEquals(new ArrayList<>(), project.getClasses());
+        assertEquals(new ArrayList<>(), preLoaded.getClasses());
     }
 
     @Test
     public void getImportsTest() {
         assertEquals(new ArrayList<>(), project.getImports());
+        assertEquals(new ArrayList<>(), preLoaded.getImports());
     }
 
     @Test
