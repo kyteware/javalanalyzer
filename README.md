@@ -11,11 +11,12 @@ I am choosing this project because I am interested in programming languages and 
 - [x] As a user, I want to be able to remove a Java project from my list of previously visualized java projects.
 - [x] As a user, I want to be able to load and reload the project files of a java project.
 - [x] As a user, I want to be able to generate a package diagram of my project.
-- [ ] As a user, I want to be able to save my list of recently accessed projects to a file.
-- [ ] As a user, I want to be able to load my previously saved accessed projects from a file.
+- [x] As a user, I want to be able to save my list of recently accessed projects to a file.
+- [x] As a user, I want to be able to load my previously saved accessed projects from a file.
 
 ## Todo for self
 - [ ] Fix user stories to better fix needs
 - [ ] Fix code cvg
 - [ ] Add docs to main
 - [ ] Make work on windows
+- [ ] Add exception folder
