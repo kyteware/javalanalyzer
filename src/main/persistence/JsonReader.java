@@ -54,6 +54,7 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
+    // EFFECTS: reads json into a list of java projects
     private List<JavaProject> readProjectList(JSONArray json) {
         List<JavaProject> projects = new ArrayList<>();
 
@@ -65,6 +66,7 @@ public class JsonReader {
         return projects;
     }
 
+    // EFFECTS: reads json into a java project
     private JavaProject readProject(JSONObject json) {
         String rawPath = json.getString("projectPath");
         Path path = Paths.get(rawPath);
@@ -89,6 +91,7 @@ public class JsonReader {
         return new JavaProject(path, classes, imports);
     }
 
+    // EFFECTS: reads json into a classpath
     private ClassPath readClassPath(JSONObject json) {
         String className = json.getString("className");
         List<String> packagePath = new ArrayList<>();

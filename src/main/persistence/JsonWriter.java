@@ -43,6 +43,7 @@ public class JsonWriter {
         }     
     }
 
+    // EFFECTS: write a java project to json
     private JSONObject writeProject(JavaProject project) {
         JSONObject projectJson = new JSONObject();
 
@@ -53,6 +54,7 @@ public class JsonWriter {
         return projectJson;
     }
 
+    // EFFECTS: write a list of classes to json
     private JSONArray writeClasses(List<ClassPath> classes) {
         JSONArray classesJson = new JSONArray();
 
@@ -63,6 +65,7 @@ public class JsonWriter {
         return classesJson;
     }
 
+    // EFFECTS: write a list of imports to json
     private JSONArray writeImports(List<SimpleEntry<ClassPath, ClassPath>> imports) {
         JSONArray importJson = new JSONArray();
 
@@ -76,6 +79,7 @@ public class JsonWriter {
         return importJson;
     }
 
+    // EFFECTS: write a class path to json
     private JSONObject writeClassPath(ClassPath cp) {
         JSONObject cpJson = new JSONObject();
 
