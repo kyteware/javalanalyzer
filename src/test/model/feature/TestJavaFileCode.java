@@ -8,10 +8,10 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import model.ClassPath;
-import model.CodeException;
 import model.TokenTree;
 import model.Tokenizer;
-import model.TooManyPackageDecls;
+import model.exception.CodeException;
+import model.exception.TooManyPackageDecls;
 
 public class TestJavaFileCode {
     @Test

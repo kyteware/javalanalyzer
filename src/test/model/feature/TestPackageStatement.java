@@ -9,11 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import model.ClassPath;
-import model.CodeException;
-import model.NoMoreTokens;
 import model.TokenTree;
 import model.Tokenizer;
-import model.UnexpectedToken;
+import model.exception.CodeException;
+import model.exception.NoMoreTokens;
+import model.exception.UnexpectedToken;
 
 
 public class TestPackageStatement {

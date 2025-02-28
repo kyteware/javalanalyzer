@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.ClassPath;
-import model.CodeException;
 import model.TokenTree;
-import model.UnexpectedToken;
-import model.UnsupportedWildcardImport;
 import model.Utils;
+import model.exception.CodeException;
+import model.exception.UnexpectedToken;
+import model.exception.UnsupportedWildcardImport;
 
 // representation of a java import statement
 public class ImportStatement {

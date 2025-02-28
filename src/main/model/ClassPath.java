@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import model.exception.UnsupportedWildcardImport;
+
 // a java classpath, can represent package paths if the class name is null
 public class ClassPath {
     private List<String> packagePath;

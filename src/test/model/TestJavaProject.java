@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import model.exception.CodeException;
+
 public class TestJavaProject {
     private JavaProject project;
     private JavaProject preLoaded;

@@ -9,6 +9,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import model.exception.UnsupportedWildcardImport;
+
 public class TestClassPath {
     private List<String> justClassDir;
     private ClassPath justClass;

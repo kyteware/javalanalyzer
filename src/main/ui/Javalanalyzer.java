@@ -9,8 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-import model.CodeException;
 import model.JavaProject;
+import model.exception.CodeException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 import persistence.ReadError;

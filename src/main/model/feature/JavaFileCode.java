@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.ClassPath;
-import model.CodeException;
-import model.NoMoreTokens;
 import model.TokenTree;
-import model.TooManyPackageDecls;
-import model.UnexpectedToken;
-import model.UnsupportedWildcardImport;
+import model.exception.CodeException;
+import model.exception.NoMoreTokens;
+import model.exception.TooManyPackageDecls;
+import model.exception.UnexpectedToken;
+import model.exception.UnsupportedWildcardImport;
 
 // the code of an entire java file
 public class JavaFileCode {

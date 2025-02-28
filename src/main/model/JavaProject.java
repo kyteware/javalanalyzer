@@ -3,6 +3,7 @@ package model;
 import java.nio.file.Path;
 import java.util.AbstractMap.SimpleEntry;
 
+import model.exception.CodeException;
 import model.feature.JavaFileCode;
 
 import java.util.ArrayList;

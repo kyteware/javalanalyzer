@@ -20,4 +20,4 @@ I am choosing this project because I am interested in programming languages and 
 - [ ] Fix code cvg
 - [x] Add docs to main
 - [ ] Make work on windows
-- [ ] Add exception folder
+- [x] Add exception folder

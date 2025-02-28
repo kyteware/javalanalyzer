@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import model.exception.NoMoreTokens;
+import model.exception.UnexpectedToken;
+
 public class TestUtils {
     @Test
     public void isWordYesTest() {

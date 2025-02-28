@@ -3,6 +3,10 @@ package model;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import model.exception.CodeException;
+import model.exception.NoMoreTokens;
+import model.exception.UnexpectedToken;
+
 // various utilities for parsing java code
 public class Utils {
     // empty constructor to get rid of code coverage problems

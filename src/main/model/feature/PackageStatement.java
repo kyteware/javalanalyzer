@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.ClassPath;
-import model.CodeException;
 import model.TokenTree;
-import model.UnexpectedToken;
 import model.Utils;
+import model.exception.CodeException;
+import model.exception.UnexpectedToken;
 
 // representation of a java package statement
 public class PackageStatement {
