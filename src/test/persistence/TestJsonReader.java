@@ -47,7 +47,7 @@ public class TestJsonReader {
     }
 
     @Test
-    public void readBadFails() {
+    public void readBadFailsTest() {
         try {
             badCurly.read();
             fail("this should break");
@@ -60,6 +60,16 @@ public class TestJsonReader {
             fail("this should break");
         } catch (ReadError e) {
             // worked as expected
+        }
+    }
+
+    @Test
+    public void readNotExistsTest() {
+        try {
+            new JsonReader("./fake path").read();
+            fail();
+        } catch (ReadError e) {
+            // wokred as expected
         }
     }
 }

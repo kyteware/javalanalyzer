@@ -35,13 +35,14 @@ public class ClassPath {
         String pathString = String.join(".", packagePath);
         if (pathString.isEmpty() && className == null) {
             return "";
-        } else if (pathString.isEmpty() && className != null) {
-            return className;
-        } else if (!pathString.isEmpty() && className == null) {
-            return pathString;
-        } else {
-            return pathString + "." + className;
         }
+        if (pathString.isEmpty()) {
+            return className;
+        }
+        if (className == null) {
+            return pathString;
+        }
+        return pathString + "." + className;
     }
 
     // EFFECTS: checks if classpath is equal to another classpath

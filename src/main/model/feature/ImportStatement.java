@@ -58,7 +58,7 @@ public class ImportStatement {
         String name = Utils.takeToken(eaten);
         String div = Utils.takeToken(eaten);
 
-        if (name.equals("*") && div.equals(";")) {
+        if (name.equals("*")) {
             throw new UnsupportedWildcardImport();
         }
 

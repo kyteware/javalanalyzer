@@ -53,4 +53,14 @@ public class TestJsonWriter {
             fail("that should have worked");
         }
     }
+
+    @Test
+    public void writeNotExistsTest() {
+        try {
+            new JsonWriter("../../../../../../../../../../../../..").write(new ArrayList<>());
+            fail();
+        } catch (WriteError e) {
+            // wokred as expected
+        }
+    }
 }
