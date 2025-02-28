@@ -19,5 +19,5 @@ I am choosing this project because I am interested in programming languages and 
 - [x] Fix user stories to better fix needs
 - [ ] Fix code cvg
 - [x] Add docs to main
-- [ ] Make work on windows
+- [x] Make work on windows
 - [x] Add exception folder
