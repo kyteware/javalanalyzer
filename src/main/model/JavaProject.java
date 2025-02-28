@@ -21,6 +21,11 @@ public class JavaProject {
         imports = new ArrayList<>();
     }
 
+    // EFFECTS: initialize a java project with pre-loaded metadata
+    public JavaProject(Path path, List<ClassPath> classes, List<SimpleEntry<ClassPath, ClassPath>> imports) {
+        // stub
+    }
+
     // EFFECTS: gets the path to the main code of the project
     public Path getMainPath() {
         return projectPath.resolve("src").resolve("main");
