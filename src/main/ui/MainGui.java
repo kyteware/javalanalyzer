@@ -4,6 +4,6 @@ package ui;
 public class MainGui {
     // EFFECTS: run the gui
     public static void main(String[] args) {
-        // stub
+        new JavalanalyzerGui();
     }
 }
