@@ -10,10 +10,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import model.JavaProject;
+import model.exception.CodeException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -25,6 +29,8 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
 
     private JPanel projectsPanel;
     private JTextField textInput;
+    private JTextArea logText;
+    private PackageGraph graph;
     
     public JavalanalyzerGui() {
         super("Javalanalyzer");
@@ -33,13 +39,16 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         
         projects = new ArrayList<>();
         projects.add(new JavaProject(Paths.get("/home/dworv/hacking-210/ProjectStarter")));
-        projects.add(new JavaProject(Paths.get("/home/dworv/hacking-210/ProjectStarter")));
+        projects.add(new JavaProject(Paths.get("./sample projects/ProjectOne")));
         JsonReader reader = new JsonReader("./data/save.json");
         JsonWriter writer = new JsonWriter("./data/save.json");
 
-		buildSidepanel();
+        graph = new PackageGraph();
 
-        setSize(500, 400);
+        buildMainpanel();
+	    buildSidepanel();
+
+        setSize(700, 400);
         setVisible(true);
     }
 
@@ -61,13 +70,14 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
 
         sidePanel.add(inputPanel, BorderLayout.NORTH);
         sidePanel.add(new JScrollPane(projectsPanel), BorderLayout.CENTER);
+        sidePanel.setMaximumSize(new Dimension(300, 1000));
 
-        add(sidePanel);
+        add(sidePanel, BorderLayout.WEST);
     }
 
     private void regenerateProjectsPanel() {
         projectsPanel.removeAll();
-        for (int i=0; i<projects.size(); i++) {
+        for (int i = 0; i < projects.size(); i++) {
             JavaProject project = projects.get(i);
 
             JPanel projectPanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
@@ -93,6 +103,24 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         projectsPanel.repaint();
     }
 
+    private void buildMainpanel() {
+        JPanel mainPanel = new JPanel(new BorderLayout());
+
+        logText = new JTextArea();
+        logText.setEditable(false);
+
+        PackageGraph graph = new PackageGraph();
+        mainPanel.add(graph, BorderLayout.CENTER);
+
+        JScrollPane scrollable = new JScrollPane(logText);
+        scrollable.setPreferredSize(new Dimension(100, 120));
+        scrollable.setMaximumSize(new Dimension(100, 120));
+        System.out.println(scrollable.getPreferredSize());
+        mainPanel.add(scrollable, BorderLayout.SOUTH);
+
+        add(mainPanel, BorderLayout.CENTER);
+    }
+
     public void actionPerformed(ActionEvent event) {
         System.out.println(event.getActionCommand());
         String command = event.getActionCommand();
@@ -107,7 +135,7 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         regenerateProjectsPanel();
     }
 
-    public void handleAddPressed() {
+    private void handleAddPressed() {
         try {
             Path path = Paths.get(textInput.getText());
             JavaProject newProject = new JavaProject(path);
@@ -121,11 +149,69 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         }
     }
 
-    public void handleOpen(int i) {
-        System.out.println(projects.get(i).getName());
+    private void handleOpen(int i) {
+        reloadFiles(projects.get(i));
+        graph.setDiagram(projects.get(i).genPackageDiagram());
     }
 
-    public void handleRm(int i) {
+    private void handleRm(int i) {
         projects.remove(i);
+    }
+
+    // MODIFIES: project
+    // EFFECTS: reload all project files
+    private void reloadFiles(JavaProject project) {
+        project.clearClasses();
+        logText.setText("");
+
+        try {
+            Files.walk(project.getMainPath()).forEach(path -> handleProjectFile(project, path));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
+    // MODIFIES: project
+    // EFFECTS: run the loop for a project menu
+    private void handleProjectFile(JavaProject project, Path path) {
+        File file = new File(path.toString());
+        if (file.isDirectory()) {
+            return;
+        }
+        String contents = loadFile(file);
+        if (!path.getFileName().toString().endsWith(".java")) {
+            return;
+        }
+
+        try {
+            project.loadJavaFile(path, contents);
+            logText.setText(logText.getText() + "\nLoaded java file: " + path.toString());
+        } catch (CodeException e) {
+            logText.setText(logText.getText() + "\nFailed to load java file: " + path.toString());
+        }
+    }
+
+    // EFFECTS: load the contents of a file
+    private String loadFile(File file) {
+        try {
+            FileReader reader = new FileReader(file);
+            StringBuilder builder = new StringBuilder();
+            
+            int charNum;
+            while ((charNum = reader.read()) != -1) {
+                builder.append((char)charNum);
+            }
+
+            String insides = builder.toString();
+            reader.close();
+
+            return insides;
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+        return null; // unreachable
     }
 }
