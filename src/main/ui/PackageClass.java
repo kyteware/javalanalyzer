@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,34 @@ public class PackageClass {
 
     public PackageBlock getParent() {
         return parent;
+    }
+
+    public void drawArrows(Graphics g) {
+        int startX = getOutX();
+        int startY = getOutY();
+
+        for (PackageClass imported : imports) {
+            int endX = imported.getInX();
+            int endY = imported.getInY();
+
+            g.drawLine(startX, startY, endX, endY);
+        }
+    }
+
+    private int getInX() {
+        return parent.getRectX();
+    }
+
+    private int getInY() {
+        return parent.getYForClass(this) + 5;
+    }
+
+    private int getOutX() {
+        return parent.getRectX() + parent.getWidth();
+    }
+
+    private int getOutY() {
+        return getInY();
     }
 
     @Override

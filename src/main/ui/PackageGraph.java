@@ -29,14 +29,45 @@ public class PackageGraph extends JPanel {
     }
 
     public void setDiagram(PackageDiagram diagram) {
-        blocks = new PackageBlockBuilder(diagram, 500, 300).getBlocks();
+        blocks = new PackageBlockBuilder(diagram, 1000, 900).getBlocks();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.setColor(Color.CYAN);
-        g.drawRect(10, 10, 5 * blocks.size(), 10);
-    } 
+        for (PackageBlock block : blocks) {
+            block.draw(g);
+            block.drawArrows(g);
+        }
+    }
+
+    // private void moveBlocks() {
+    //     for (PackageBlock block : blocks) {
+    //         int deltaX = 0;
+    //         int deltaY = 0;
+
+    //         for (PackageBlock other : blocks) {
+    //             if (block.equals(other)) {
+    //                 continue;
+    //             }
+                
+    //             double mag = 
+    //         }
+    //     }
+    // }
+
+    // private double angleAway(PackageBlock from, PackageBlock to) {
+    //     double deltaX = (double)(to.getX() - from.getX());
+    //     double deltaY = (double)(to.getY() - from.getY());
+
+    //     return Math.atan(deltaY/deltaX);
+    // }
+
+    // private double distAway(PackageBlock from, PackageBlock to) {
+    //     double deltaX = (double)(to.getX() - from.getX());
+    //     double deltaY = (double)(to.getY() - from.getY());
+
+    //     return Math.sqrt(Math.pow(deltaX, 2.0) + Math.pow(deltaY, 2.0));
+    // }
 }

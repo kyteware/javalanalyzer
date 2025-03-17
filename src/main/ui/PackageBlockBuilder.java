@@ -26,9 +26,7 @@ public class PackageBlockBuilder {
 
     private void initBlocks(int maxWidth, int maxHeight) {
         blocks = new ArrayList<>();
-
         Random rng = new Random();
-        ArrayList<PackageBlock> blocks = new ArrayList<>();
 
         for (ClassPath classPath : diagram.getClasses()) {
             ClassPath truncated = new ClassPath(classPath.getPackagePath(), null);

@@ -1,5 +1,7 @@
 package ui;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,8 @@ public class PackageBlock {
     private int x;
     private int y;
     private List<PackageClass> classes;
+
+    private int WIDTH = 170;
 
     public PackageBlock(String name, int x, int y) {
         this.name = name;
@@ -27,12 +31,38 @@ public class PackageBlock {
         return y;
     }
 
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    public int getHeight() {
+        return 25 + 15 * classes.size();
+    }
+
+    public int getRectX() {
+        return x - WIDTH / 2;
+    }
+
+    public int getRectY() {
+        return y - getHeight() / 2;
+    }
+
     public String getName() {
         return name;
     }
 
     public List<PackageClass> getClasses() {
         return classes;
+    }
+
+    public int getYForClass(PackageClass cls) {
+        for (int i = 0; i < classes.size(); i++) {
+            if (cls.equals(classes.get(i))) {
+                return getRectY() + (i+2) * 15;
+            }
+        }
+
+        return -5; // shouldn't happen
     }
 
     public void setX(int x) {
@@ -45,6 +75,30 @@ public class PackageBlock {
 
     public void addClass(PackageClass newClass) {
         classes.add(newClass);
+    }
+
+    public void draw(Graphics g) {
+        g.setColor(Color.GRAY);
+
+        int height = getHeight();
+        
+        g.drawRect(getRectX(), getRectY(), WIDTH, height);
+
+        g.setColor(Color.BLACK);
+
+        g.drawString(name, getRectX() + 2, getRectY() + 15);
+        g.drawLine(getRectX(), getRectY() + 16, getRectX() + WIDTH, getRectY() + 16);
+
+        for (int i = 0; i < classes.size(); i++) {
+            PackageClass cls = classes.get(i);
+            g.drawString(cls.getName(), getRectX() + 5, getYForClass(cls));
+        }
+    }
+
+    public void drawArrows(Graphics g) {
+        for (PackageClass pkgClass : classes) {
+            pkgClass.drawArrows(g);
+        }
     }
 
     @Override

@@ -36,6 +36,7 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         super("Javalanalyzer");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(false);
+        setResizable(false);
         
         projects = new ArrayList<>();
         projects.add(new JavaProject(Paths.get("/home/dworv/hacking-210/ProjectStarter")));
@@ -43,12 +44,10 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         JsonReader reader = new JsonReader("./data/save.json");
         JsonWriter writer = new JsonWriter("./data/save.json");
 
-        graph = new PackageGraph();
-
         buildMainpanel();
 	    buildSidepanel();
 
-        setSize(700, 400);
+        setSize(1300, 1000);
         setVisible(true);
     }
 
@@ -109,12 +108,12 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         logText = new JTextArea();
         logText.setEditable(false);
 
-        PackageGraph graph = new PackageGraph();
+        graph = new PackageGraph();
         mainPanel.add(graph, BorderLayout.CENTER);
 
         JScrollPane scrollable = new JScrollPane(logText);
-        scrollable.setPreferredSize(new Dimension(100, 120));
-        scrollable.setMaximumSize(new Dimension(100, 120));
+        scrollable.setPreferredSize(new Dimension(700, 100));
+        scrollable.setMaximumSize(new Dimension(700, 100));
         System.out.println(scrollable.getPreferredSize());
         mainPanel.add(scrollable, BorderLayout.SOUTH);
 
