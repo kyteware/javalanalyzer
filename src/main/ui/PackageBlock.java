@@ -2,11 +2,8 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.List;
-
-import model.ClassPath;
 
 public class PackageBlock {
     private String name;
