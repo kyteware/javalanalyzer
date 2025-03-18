@@ -48,7 +48,7 @@ public class PackageClass {
     }
 
     private int getInY() {
-        return parent.getYForClass(this) + 5;
+        return parent.getYForClass(this) - 5;
     }
 
     private int getOutX() {
