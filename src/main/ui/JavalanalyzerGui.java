@@ -20,6 +20,8 @@ import model.JavaProject;
 import model.exception.CodeException;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+import persistence.ReadError;
+import persistence.WriteError;
 
 // the root of the gui
 public class JavalanalyzerGui extends JFrame implements ActionListener {
@@ -39,10 +41,8 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         setResizable(false);
         
         projects = new ArrayList<>();
-        projects.add(new JavaProject(Paths.get("/home/dworv/hacking-210/ProjectStarter")));
-        projects.add(new JavaProject(Paths.get("./sample projects/ProjectOne")));
-        JsonReader reader = new JsonReader("./data/save.json");
-        JsonWriter writer = new JsonWriter("./data/save.json");
+        reader = new JsonReader("./data/save.json");
+        writer = new JsonWriter("./data/save.json");
 
         buildMainpanel();
 	    buildSidepanel();
@@ -57,11 +57,9 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
 
         textInput = new JTextField(20);
         inputPanel.add(textInput);
-
-        JButton addButton = new JButton("+");
-        addButton.addActionListener(this);
-        addButton.setActionCommand("addPressed");
-        inputPanel.add(addButton);
+        inputPanel.add(buildButton("+", "addPressed"));
+        inputPanel.add(buildButton("📥", "savePressed"));
+        inputPanel.add(buildButton("📤", "loadPressed"));
 
         projectsPanel = new JPanel();
         projectsPanel.setLayout(new BoxLayout(projectsPanel, BoxLayout.Y_AXIS));
@@ -72,6 +70,13 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         sidePanel.setMaximumSize(new Dimension(300, 1000));
 
         add(sidePanel, BorderLayout.WEST);
+    }
+
+    private JButton buildButton(String label, String message) {
+        JButton button = new JButton(label);
+        button.addActionListener(this);
+        button.setActionCommand(message);
+        return button;
     }
 
     private void regenerateProjectsPanel() {
@@ -125,6 +130,10 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         String command = event.getActionCommand();
         if (command.equals("addPressed")) {
             handleAddPressed();
+        } else if (command.equals("savePressed")) {  
+            handleSave();
+        } else if (command.equals("loadPressed")) {
+            handleLoad();
         } else if (command.startsWith("open")) {
             handleOpen(Integer.valueOf(command.substring(4)));
         } else if (command.startsWith("rm")) {
@@ -155,6 +164,22 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
 
     private void handleRm(int i) {
         projects.remove(i);
+    }
+
+    private void handleSave() {
+        try {
+            writer.write(projects);
+        } catch (WriteError e) {
+            System.out.println("couldn't save to file...");
+        }
+    }
+
+    private void handleLoad() {
+        try {
+            projects = reader.read();
+        } catch (ReadError e) {
+            System.out.println("couldn't load from file...");
+        }
     }
 
     // MODIFIES: project
