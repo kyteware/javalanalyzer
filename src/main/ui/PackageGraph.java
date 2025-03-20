@@ -8,11 +8,17 @@ import javax.swing.JPanel;
 
 import model.PackageDiagram;
 
+// extension of jpanel for displaying package diagrams
 public class PackageGraph extends JPanel {
     private List<PackageBlock> blocks;
+    boolean lines;
+    boolean blue;
 
+    // EFFECTS: instantiate a new package graph
     public PackageGraph() {
         blocks = new ArrayList<>();
+        lines = false;
+        blue = false;
 
         new Thread(() -> {
             while (true) {
@@ -27,46 +33,35 @@ public class PackageGraph extends JPanel {
         }).start();
     }
 
+    // MODIFIES: this
+    // EFFECTS: reset the graph with a new diagram
     public void setDiagram(PackageDiagram diagram) {
         blocks = new PackageBlockBuilder(diagram, 1000, 900).getBlocks();
     }
 
+    // MODIFIES: this
+    // EFFECTS: set whether or not lines are drawn
+    public void setLines(boolean lines) {
+        this.lines = lines;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: set whether or not the block borders are blue
+    public void setBlue(boolean blue) {
+        this.blue = blue;
+    }
+
+    // MODIFIES: g
+    // EFFECTS: paint the graph to the panel
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         for (PackageBlock block : blocks) {
-            block.draw(g);
-            block.drawArrows(g);
+            block.draw(g, blue);
+            if (lines) {
+                block.drawArrows(g);
+            }
         }
     }
-
-    // private void moveBlocks() {
-    //     for (PackageBlock block : blocks) {
-    //         int deltaX = 0;
-    //         int deltaY = 0;
-
-    //         for (PackageBlock other : blocks) {
-    //             if (block.equals(other)) {
-    //                 continue;
-    //             }
-                
-    //             double mag = 
-    //         }
-    //     }
-    // }
-
-    // private double angleAway(PackageBlock from, PackageBlock to) {
-    //     double deltaX = (double)(to.getX() - from.getX());
-    //     double deltaY = (double)(to.getY() - from.getY());
-
-    //     return Math.atan(deltaY/deltaX);
-    // }
-
-    // private double distAway(PackageBlock from, PackageBlock to) {
-    //     double deltaX = (double)(to.getX() - from.getX());
-    //     double deltaY = (double)(to.getY() - from.getY());
-
-    //     return Math.sqrt(Math.pow(deltaX, 2.0) + Math.pow(deltaY, 2.0));
-    // }
 }

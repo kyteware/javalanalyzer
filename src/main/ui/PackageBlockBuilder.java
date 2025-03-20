@@ -8,11 +8,13 @@ import java.util.Random;
 import model.ClassPath;
 import model.PackageDiagram;
 
+// a factory class for package blocks
 public class PackageBlockBuilder {
     private PackageDiagram diagram;
     private List<PackageBlock> blocks;
     private List<PackageClass> classes;
 
+    // EFFECTS: compute a list of package blocks from the diagram, considering max width and max height
     public PackageBlockBuilder(PackageDiagram diagram, int maxWidth, int maxHeight) {
         this.diagram = diagram;
         initBlocks(maxWidth, maxHeight);
@@ -24,6 +26,8 @@ public class PackageBlockBuilder {
         return blocks;
     }
 
+    // MODIFIES: this
+    // EFFECTS: instantiate the blocks of the graph
     private void initBlocks(int maxWidth, int maxHeight) {
         blocks = new ArrayList<>();
         Random rng = new Random();
@@ -37,6 +41,8 @@ public class PackageBlockBuilder {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: instantiate the classes in the graph
     private void initClasses() {
         classes = new ArrayList<>();
 
@@ -53,6 +59,8 @@ public class PackageBlockBuilder {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: connects the blocks to the classes and vice versa
     private void connectClasses() {
         for (SimpleEntry<ClassPath, ClassPath> importPair : diagram.getImports()) {
             PackageClass importer = findClass(importPair.getKey());
@@ -62,6 +70,7 @@ public class PackageBlockBuilder {
         }
     }
 
+    // EFFECTS: search for a class with a class path
     private PackageClass findClass(ClassPath classPath) {
         String stringifiedPath = new ClassPath(classPath.getPackagePath(), null).stringify();
         for (PackageClass pkgClass : classes) {

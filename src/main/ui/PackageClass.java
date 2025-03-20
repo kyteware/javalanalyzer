@@ -4,11 +4,13 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
+// a representation of a class inside the graph
 public class PackageClass {
     private String name;
     private List<PackageClass> imports;
     private PackageBlock parent;
 
+    // EFFECTS: instantiate a package class with an empty imports list
     public PackageClass(String name, PackageBlock parent) {
         this.name = name;
         this.parent = parent;
@@ -23,6 +25,8 @@ public class PackageClass {
         return imports;
     }
 
+    // MODIFIES: this
+    // EFFECTS: add an import to the class
     public void addImport(PackageClass pc) {
         imports.add(pc);
     }
@@ -31,6 +35,8 @@ public class PackageClass {
         return parent;
     }
 
+    // MODIFIES: g
+    // EFFECTS: draws all the arrows coming out of the class
     public void drawArrows(Graphics g) {
         int startX = getOutX();
         int startY = getOutY();

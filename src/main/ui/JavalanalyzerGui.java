@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -34,13 +36,11 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
     private JTextArea logText;
     private PackageGraph graph;
     
+    // EFFECTS: instantiates the gui
     public JavalanalyzerGui() {
         super("Javalanalyzer");
         setUndecorated(false);
         setResizable(false); 
-        
-        // there is a bug with checkstyle on my machine where this creates an indentation error.
-        // i can't figure out why this is the case, please disregard
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         projects = new ArrayList<>();
@@ -48,14 +48,14 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         writer = new JsonWriter("./data/save.json");
 
         buildMainpanel();
-
-        // same error as above
 	    buildSidepanel();
 
         setSize(1300, 1000);
         setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: builds the sidepanel of the gui
     private void buildSidepanel() {
         JPanel sidePanel = new JPanel(new BorderLayout());
         JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -71,8 +71,16 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         regenerateProjectsPanel();
 
         JPanel settingsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        settingsPanel.add(buildToggle("Lines", "toggleLines"));
-        settingsPanel.add(buildToggle("Blue", "toggleBlue"));
+        settingsPanel.add(buildToggle(
+            "Lines", 
+            "toggleLines", 
+            ev -> handleLines(ev.getStateChange() == ItemEvent.SELECTED)
+        ));
+        settingsPanel.add(buildToggle(
+            "Blue", 
+            "toggleBlue", 
+            ev -> handleBlue(ev.getStateChange() == ItemEvent.SELECTED)
+        ));
 
         sidePanel.add(inputPanel, BorderLayout.NORTH);
         sidePanel.add(new JScrollPane(projectsPanel), BorderLayout.CENTER);
@@ -82,6 +90,7 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         add(sidePanel, BorderLayout.WEST);
     }
 
+    // EFFECTS: returns a button as described
     private JButton buildButton(String label, String message) {
         JButton button = new JButton(label);
         button.addActionListener(this);
@@ -89,13 +98,17 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         return button;
     }
 
-    private JToggleButton buildToggle(String label, String message) {
+    // EFFECTS: returns a toggle button as described
+    private JToggleButton buildToggle(String label, String message, ItemListener listener) {
         JToggleButton toggle = new JToggleButton(label);
-        toggle.addActionListener(this);
+        toggle.addItemListener(listener);
         toggle.setActionCommand(message);
         return toggle;
     }
 
+    // REQUIRES: projectsPanel exists
+    // MODIFIES: this
+    // EFFECTS: regenerates the projects panel (important or else it won't get redrawn)
     private void regenerateProjectsPanel() {
         projectsPanel.removeAll();
         for (int i = 0; i < projects.size(); i++) {
@@ -124,6 +137,8 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         projectsPanel.repaint();
     }
 
+    // MODIFIES: this
+    // EFFECTS: builds the main panel
     private void buildMainpanel() {
         JPanel mainPanel = new JPanel(new BorderLayout());
 
@@ -142,6 +157,8 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         add(mainPanel, BorderLayout.CENTER);
     }
 
+    // MODIFIES: this
+    // EFFECTS: handles any button action being performed (toggles handled seperately)
     public void actionPerformed(ActionEvent event) {
         System.out.println(event.getActionCommand());
         String command = event.getActionCommand();
@@ -160,6 +177,8 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         regenerateProjectsPanel();
     }
 
+    // MODIFIES: this
+    // EFFECTS: handle the + button being pressed
     private void handleAddPressed() {
         try {
             Path path = Paths.get(textInput.getText());
@@ -174,15 +193,23 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         }
     }
 
+    // REQUIRES: 0 <= i < projects.size()
+    // MODIFIES: this
+    // EFFECTS: handles the open button being pressed
     private void handleOpen(int i) {
         reloadFiles(projects.get(i));
         graph.setDiagram(projects.get(i).genPackageDiagram());
     }
 
+    // REQUIRES: 0 <= i < projects.size()
+    // MODIFIES: this
+    // EFFECTS: handles the x button being pressed
     private void handleRm(int i) {
         projects.remove(i);
     }
 
+    // MODIFIES: this
+    // EFFECTS: saves the projects to disk
     private void handleSave() {
         try {
             writer.write(projects);
@@ -191,12 +218,26 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads saved projects from disk
     private void handleLoad() {
         try {
             projects = reader.read();
         } catch (ReadError e) {
             System.out.println("couldn't load from file...");
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: handle the lines toggle being pressed
+    private void handleLines(boolean on) {
+        graph.setLines(on);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: handle the blue toggle being pressed
+    private void handleBlue(boolean on) {
+        graph.setBlue(on);
     }
 
     // MODIFIES: project
