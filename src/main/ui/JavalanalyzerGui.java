@@ -36,15 +36,20 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
     
     public JavalanalyzerGui() {
         super("Javalanalyzer");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(false);
-        setResizable(false);
+        setResizable(false); 
+        
+        // there is a bug with checkstyle on my machine where this creates an indentation error.
+        // i can't figure out why this is the case, please disregard
+	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         projects = new ArrayList<>();
         reader = new JsonReader("./data/save.json");
         writer = new JsonWriter("./data/save.json");
 
         buildMainpanel();
+
+        // same error as above
 	    buildSidepanel();
 
         setSize(1300, 1000);
@@ -65,8 +70,13 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         projectsPanel.setLayout(new BoxLayout(projectsPanel, BoxLayout.Y_AXIS));
         regenerateProjectsPanel();
 
+        JPanel settingsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        settingsPanel.add(buildToggle("Lines", "toggleLines"));
+        settingsPanel.add(buildToggle("Blue", "toggleBlue"));
+
         sidePanel.add(inputPanel, BorderLayout.NORTH);
         sidePanel.add(new JScrollPane(projectsPanel), BorderLayout.CENTER);
+        sidePanel.add(settingsPanel, BorderLayout.SOUTH);
         sidePanel.setMaximumSize(new Dimension(300, 1000));
 
         add(sidePanel, BorderLayout.WEST);
@@ -77,6 +87,13 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         button.addActionListener(this);
         button.setActionCommand(message);
         return button;
+    }
+
+    private JToggleButton buildToggle(String label, String message) {
+        JToggleButton toggle = new JToggleButton(label);
+        toggle.addActionListener(this);
+        toggle.setActionCommand(message);
+        return toggle;
     }
 
     private void regenerateProjectsPanel() {
