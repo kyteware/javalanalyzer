@@ -71,15 +71,11 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         regenerateProjectsPanel();
 
         JPanel settingsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        settingsPanel.add(buildToggle(
-            "Lines", 
-            "toggleLines", 
-            ev -> handleLines(ev.getStateChange() == ItemEvent.SELECTED)
+        settingsPanel.add(buildToggle("Lines", "toggleLines", 
+                ev -> handleLines(ev.getStateChange() == ItemEvent.SELECTED)
         ));
-        settingsPanel.add(buildToggle(
-            "Blue", 
-            "toggleBlue", 
-            ev -> handleBlue(ev.getStateChange() == ItemEvent.SELECTED)
+        settingsPanel.add(buildToggle("Blue", "toggleBlue", 
+                ev -> handleBlue(ev.getStateChange() == ItemEvent.SELECTED)
         ));
 
         sidePanel.add(inputPanel, BorderLayout.NORTH);
