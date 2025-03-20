@@ -34,7 +34,9 @@ public class PackageBlockBuilder {
 
         for (ClassPath classPath : diagram.getClasses()) {
             ClassPath truncated = new ClassPath(classPath.getPackagePath(), null);
-            PackageBlock block = new PackageBlock(truncated.stringify(), rng.nextInt(maxWidth), rng.nextInt(maxHeight));
+            int x = rng.nextInt(maxWidth - 100) + 50;
+            int y = rng.nextInt(maxHeight - 100) + 50;
+            PackageBlock block = new PackageBlock(truncated.stringify(), x, y);
             if (!blocks.contains(block)) {
                 blocks.add(block);
             }
