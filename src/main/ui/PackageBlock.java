@@ -8,8 +8,8 @@ import java.util.List;
 // a representation of a package block in the gui
 public class PackageBlock {
     private String name;
-    private int x;
-    private int y;
+    private int posX;
+    private int poxY;
     private List<PackageClass> classes;
 
     private static int WIDTH = 170;
@@ -17,17 +17,17 @@ public class PackageBlock {
     // EFFECTS: instantiates package block with empty children
     public PackageBlock(String name, int x, int y) {
         this.name = name;
-        this.x = x;
-        this.y = y;
+        this.posX = x;
+        this.poxY = y;
         this.classes = new ArrayList<>();
     }
 
-    public int getX() {
-        return x;
+    public int getPosX() {
+        return posX;
     }
 
-    public int getY() {
-        return y;
+    public int getPoxY() {
+        return poxY;
     }
 
     public int getWidth() {
@@ -39,11 +39,11 @@ public class PackageBlock {
     }
 
     public int getRectX() {
-        return x - WIDTH / 2;
+        return posX - WIDTH / 2;
     }
 
     public int getRectY() {
-        return y - getHeight() / 2;
+        return poxY - getHeight() / 2;
     }
 
     public String getName() {
@@ -67,14 +67,14 @@ public class PackageBlock {
 
     // MODIFIES: this
     // EFFECTS: sets the x of the block
-    public void setX(int x) {
-        this.x = x;
+    public void setPosX(int x) {
+        this.posX = x;
     }
 
     // MODIFIES: this
     // EFFECTS: sets the y of the block
-    public void setY(int y) {
-        this.y = y;
+    public void setPoxY(int y) {
+        this.poxY = y;
     }
 
     // MODIFIES: this
@@ -125,18 +125,23 @@ public class PackageBlock {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         PackageBlock other = (PackageBlock) obj;
         if (name == null) {
-            if (other.name != null)
+            if (other.name != null) {
                 return false;
-        } else if (!name.equals(other.name))
+            }
+        } else if (!name.equals(other.name)) {
             return false;
+        }
         return true;
     }
 }

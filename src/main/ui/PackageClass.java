@@ -76,23 +76,28 @@ public class PackageClass {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        } else if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        } else if (getClass() != obj.getClass()) {
             return false;
+        }
         PackageClass other = (PackageClass) obj;
         if (name == null) {
-            if (other.name != null)
+            if (other.name != null) {
                 return false;
-        } else if (!name.equals(other.name))
+            }
+        } else if (!name.equals(other.name)) {
             return false;
+        }
         if (parent == null) {
-            if (other.parent != null)
+            if (other.parent != null) {
                 return false;
-        } else if (!parent.equals(other.parent))
+            }
+        } else if (!parent.equals(other.parent)) {
             return false;
+        }
         return true;
     }
 }
