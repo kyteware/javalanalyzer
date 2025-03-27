@@ -38,7 +38,7 @@ public class JsonReader {
             JSONArray json = new JSONArray(raw);
 
             EventLog.getInstance().logEvent(new Event(
-                "Read the program state from JSON at path " + path.toString()
+                    "Read the program state from JSON at path " + path.toString()
             ));
 
             return readProjectList(json);

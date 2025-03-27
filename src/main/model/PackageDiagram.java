@@ -22,7 +22,7 @@ public class PackageDiagram {
         }
 
         EventLog.getInstance().logEvent(new Event(
-            "New package diagram with " + this.classes.size() + " classes and " + this.imports.size() + "imports"
+                "New package diagram with " + this.classes.size() + " classes and " + this.imports.size() + " imports"
         ));
     }
 

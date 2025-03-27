@@ -30,7 +30,7 @@ public class Tokenizer {
             parts.add(matcher.group());
         }
         EventLog.getInstance().logEvent(new Event(
-            "Java code tokenized (" + parts.size() + " tokens found)"
+                "Java code tokenized (" + parts.size() + " tokens found)"
         ));
         return parts;
     }

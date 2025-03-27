@@ -41,7 +41,7 @@ public class JsonWriter {
             writer.print(json.toString(IDENT_FACTOR));
 
             EventLog.getInstance().logEvent(new Event(
-                "Wrote the program state to json at path " + path.toString()
+                    "Wrote the program state to json at path " + path.toString()
             ));
 
             writer.close();

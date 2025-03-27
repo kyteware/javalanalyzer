@@ -45,14 +45,14 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         super("Javalanalyzer");
         setUndecorated(false);
         setResizable(false); 
-	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // fails checkstyle fon my machine or no apparent reason
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // fails checkstyle fon my machine or no apparent reason
         
         projects = new ArrayList<>();
         reader = new JsonReader("./data/save.json");
         writer = new JsonWriter("./data/save.json");
 
         buildMainpanel();
-	    buildSidepanel(); // fails checkstyle on my machine for no apparent reason
+        buildSidepanel(); // fails checkstyle on my machine for no apparent reason
 
         setSize(1300, 1000);
         addWindowListener(new WindowAdapter() {

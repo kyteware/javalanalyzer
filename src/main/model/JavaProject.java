@@ -63,7 +63,7 @@ public class JavaProject {
             imports.add(new SimpleEntry<>(classPath, target));
         }
         EventLog.getInstance().logEvent(new Event(
-            "Java file " + path.toString() + " loaded with " + imports.size() + " imports"
+                "Java file " + path.toString() + " loaded with " + imports.size() + " imports"
         ));
     }
 
@@ -83,7 +83,7 @@ public class JavaProject {
         imports.clear();
         classes.clear();
         EventLog.getInstance().logEvent(new Event(
-            "Loaded classes of Java project " + projectPath.toString() + " cleared"
+                "Loaded classes of Java project " + projectPath.toString() + " cleared"
         ));
     }
 }
