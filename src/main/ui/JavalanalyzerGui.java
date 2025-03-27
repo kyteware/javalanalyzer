@@ -160,7 +160,6 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
         JScrollPane scrollable = new JScrollPane(logText);
         scrollable.setPreferredSize(new Dimension(700, 100));
         scrollable.setMaximumSize(new Dimension(700, 100));
-        System.out.println(scrollable.getPreferredSize());
         mainPanel.add(scrollable, BorderLayout.SOUTH);
 
         add(mainPanel, BorderLayout.CENTER);
@@ -169,7 +168,6 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
     // MODIFIES: this
     // EFFECTS: handles any button action being performed (toggles handled seperately)
     public void actionPerformed(ActionEvent event) {
-        System.out.println(event.getActionCommand());
         String command = event.getActionCommand();
         if (command.equals("addPressed")) {
             handleAddPressed();
