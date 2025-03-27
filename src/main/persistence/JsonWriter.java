@@ -14,6 +14,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import model.ClassPath;
+import model.Event;
+import model.EventLog;
 import model.JavaProject;
 
 // a class to serielize our application's state (a list of JavaProjects) to a file
@@ -37,6 +39,11 @@ public class JsonWriter {
         try {
             PrintWriter writer = new PrintWriter(new File(path.toUri()));
             writer.print(json.toString(IDENT_FACTOR));
+
+            EventLog.getInstance().logEvent(new Event(
+                "Wrote the program state to json at path " + path.toString()
+            ));
+
             writer.close();
         } catch (FileNotFoundException e) {
             throw new WriteError();

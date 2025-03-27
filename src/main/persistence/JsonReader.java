@@ -17,6 +17,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import model.ClassPath;
+import model.Event;
+import model.EventLog;
 import model.JavaProject;
 
 // a class for deserializing json into our project state (a list of JavaProjects)
@@ -31,8 +33,14 @@ public class JsonReader {
     // EFFECTS: opens the json file, reads the state and then closes it
     public List<JavaProject> read() throws ReadError {
         String raw = readFile();
+
         try {
             JSONArray json = new JSONArray(raw);
+
+            EventLog.getInstance().logEvent(new Event(
+                "Read the program state from JSON at path " + path.toString()
+            ));
+
             return readProjectList(json);
         } catch (JSONException e) {
             throw new ReadError();

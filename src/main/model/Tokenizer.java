@@ -29,6 +29,9 @@ public class Tokenizer {
         while (matcher.find()) {
             parts.add(matcher.group());
         }
+        EventLog.getInstance().logEvent(new Event(
+            "Java code tokenized (" + parts.size() + " tokens found)"
+        ));
         return parts;
     }
 }

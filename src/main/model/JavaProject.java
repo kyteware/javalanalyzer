@@ -62,6 +62,9 @@ public class JavaProject {
         for (ClassPath target : compiled.getImports()) {
             imports.add(new SimpleEntry<>(classPath, target));
         }
+        EventLog.getInstance().logEvent(new Event(
+            "Java file " + path.toString() + "loaded with " + imports.size() + " imports"
+        ));
     }
 
     // EFFECTS: generate a package diagram for the java project
@@ -79,5 +82,8 @@ public class JavaProject {
     public void clearClasses() {
         imports.clear();
         classes.clear();
+        EventLog.getInstance().logEvent(new Event(
+            "Loaded classes of Java project " + projectPath.toString() + " cleared"
+        ));
     }
 }

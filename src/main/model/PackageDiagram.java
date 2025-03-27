@@ -20,6 +20,10 @@ public class PackageDiagram {
                 this.imports.remove(i);
             }
         }
+
+        EventLog.getInstance().logEvent(new Event(
+            "New package diagram with " + this.classes.size() + " classes and " + this.imports.size() + "imports"
+        ));
     }
 
     // EFFECTS: get the classpaths contained in the diagram
