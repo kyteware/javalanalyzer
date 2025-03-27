@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,6 +20,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import model.Event;
+import model.EventLog;
 import model.JavaProject;
 import model.exception.CodeException;
 import persistence.JsonReader;
@@ -51,7 +55,16 @@ public class JavalanalyzerGui extends JFrame implements ActionListener {
 	    buildSidepanel(); // fails checkstyle on my machine for no apparent reason
 
         setSize(1300, 1000);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                for (Event e : EventLog.getInstance()) {
+                    System.out.println(e.getDate().toString() + "\t" + e.getDescription());
+                }
+            }
+        });
         setVisible(true);
+
     }
 
     // MODIFIES: this
