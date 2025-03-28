@@ -104,6 +104,8 @@ Thu Mar 27 15:02:37 PDT 2025    New package diagram with 2 classes and 0 imports
 
 ## Phase 4: Task 3
 
+[./UML_Design_Diagram.png]
+
 As I was looking at my UML diagram, I noticed a few interesting features. First of all, almost all of the classes have associations/aggregations exclusively of `ClassPath`. This can partially be attributed to the nature of my program; a lot of its responsibilities involve parsing Java code, which is heavily dependant on working with `String`s (not included in the UML diagram) and `ClassPath`s. However, there was one other design flaw I noticed while working on my UML diagram. My `ImportStatement` and `PackageStatement` classes both have very similar behaviour.
 
 If I were to make one refactoring to the structure of my program, I would extract the shared behaviour of `ImportStatement` and `PackageStatement` into an abstract class `ClassPathStatement`. This would eliminate code duplication in my project, reducing the complexity and making it easier to understand. 
